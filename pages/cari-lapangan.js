@@ -24,6 +24,14 @@ export default function Lapangan() {
 
     let lapangan = data['message']
 
+    let searchArr = lapangan.filter((tblDat) => {
+        if (searchTerm == "") {
+            return tblDat
+        } else if (tblDat.namaVenue.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return tblDat
+        }
+    })
+
     //Tambahan Pagination
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -49,11 +57,11 @@ export default function Lapangan() {
                     </div>
                 </div>
                 <div className="container my-4 text-black-50" >
-                    <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${kategori}`}</h2>
+                    <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${search}`}</h2>
                     <hr></hr>
                     <div className="row justify-content-center row-cols-1 row-cols-md-3">
                         {currentPosts.length === 0 ? (
-                            <><h3>{`Tidak ada Data Lapangan ${kategori} ditemukan`}</h3></>
+                            <><h3>{`Tidak ada Data Lapangan dengan nama ${search} ditemukan`}</h3></>
                         ) : (
                             <>
 

@@ -1,22 +1,46 @@
-import Router from 'next/router';
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 // mengambil data dari collection Transaksi
-
-async function getCariLapangan(req, res) {
+async function getLapangan(req, res) {
     const { namaVenueReq } = req.query
     try {
         // connect to the database
         let { db } = await connectToDatabase();
-        let infoVenue = await db
+        let searchMitra = await db
             .collection('mitra')
-            .find({
-                namaVenue: namaVenueReq
-            })
-            .sort({ idfavorit: -1 })
-            .toArray();
+            .aggregate([
+                {
+                    $match: {
+                        namaVenue: namaVenueReq
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "lapangan",
+                        localField: "namaVenue",
+                        foreignField: "namaVenue",
+                        as: "lapanganVenue"
+                    }
+                }, {
+                    $project: {
+                        namaVenue : 1,
+                        alamat : 1,
+                        noWa : 1,
+                        instagram : 1,
+                        kategori : 1,
+                        hariOperasional : 1,
+                        jamOperasional: 1,
+                        fotoVenue: 1,
+                        lapanganVenue: {
+                            hargaPagi: 1
+                        }
+                    }
+                }
+            ])
+            .toArray()
+        // return the posts
         return res.json({
-            message: JSON.parse(JSON.stringify(infoVenue)),
+            message: JSON.parse(JSON.stringify(searchMitra)),
             success: true,
         });
     } catch (error) {
@@ -33,7 +57,7 @@ export default async function handler(req, res) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
-            return getCariLapangan(req, res);
+            return getLapangan(req, res);
         }
         case 'POST': {
             return addFavorit(req, res);
