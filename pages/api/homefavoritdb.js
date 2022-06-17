@@ -32,6 +32,21 @@ async function getFavoritHome(req, res) {
                     localField: "namaVenue",
                     foreignField: "namaVenue",
                     as: "lapanganVenue"
+                },
+
+            }, {
+                $project: {
+                    namaVenue : 1,
+                    alamat : 1,
+                    noWa : 1,
+                    instagram : 1,
+                    kategori : 1,
+                    hariOperasional : 1,
+                    jamOperasional: 1,
+                    fotoVenue: 1,
+                    lapanganVenue: {
+                        hargaPagi: 1
+                    }
                 }
             }])
             .toArray()

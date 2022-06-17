@@ -1,11 +1,39 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Helmet from 'react-helmet'
 import Pagination from '../components/Pagination'
-import CardVenue from '../components/user/cari/CardVenue'
+import CardRekomendasi from '../components/user/lapangan/CardRekomendasi'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import useSWR from 'swr'
 
 
 export default function Lapangan() {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(6)
+    const [filterSearch, setFilterSearch] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
+
+    let router = useRouter()
+    const { search } = router.query
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    const { data: data, error } = useSWR(`/api/carilapangandb?namaVenueReq=${search}`, fetcher)
+
+    if (!data) {
+        return <div>Loading...</div>
+    } else if (error) {
+        return <div>Something went wrong</div>
+    }
+
+    let lapangan = data['message']
+
+    //Tambahan Pagination
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    //Fixed Pagintion CurrentPosts hapus filter di bawah
+    let currentPosts = searchArr.slice(indexOfFirstPost, indexOfLastPost)
+    //Fixed Pagination CurrentPosts
+    const howManyPages = Math.ceil(searchArr.length / postsPerPage)
+    //Tambahan Pagination Current Post Map
+
+
     return (
         <>
             <div className='container my-4'>
@@ -20,13 +48,25 @@ export default function Lapangan() {
                         </div>
                     </div>
                 </div>
-                <div className="row row-cols-1 row-cols-md-4 g-4 mt-3">
+                <div className="container my-4 text-black-50" >
+                    <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${kategori}`}</h2>
+                    <hr></hr>
+                    <div className="row justify-content-center row-cols-1 row-cols-md-3">
+                        {currentPosts.length === 0 ? (
+                            <><h3>{`Tidak ada Data Lapangan ${kategori} ditemukan`}</h3></>
+                        ) : (
+                            <>
 
-                    {/* <CardVenue /> */}
+                                {currentPosts.map((data, i) => (
+                                    <CardRekomendasi props={data} />
+                                ))}
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
             <div className='container d-flex mt-4 text-center justify-content-center'>
-                {/* <Pagination /> */}
+                <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
             </div>
 
 

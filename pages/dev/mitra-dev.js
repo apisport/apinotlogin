@@ -32,7 +32,7 @@ export default function MitraDev() {
     })
 
     //Tambahan Pagination
-    const indexOfLastPost = currentPage * postsPlerPage;
+    const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     //Fixed Pagintion CurrentPosts hapus filter di bawah
     let currentPosts = searchArr.slice(indexOfFirstPost, indexOfLastPost)
