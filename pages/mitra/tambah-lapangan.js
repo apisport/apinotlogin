@@ -1,10 +1,12 @@
 //@ts-check
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from 'next-auth/react'
+import useSWR from 'swr';
 
 export default function Addlapangan() {
+
     //Variabel
-    const [namaVenue, setNamaVenue] = useState('Scuttod');
     const [namaLapangan, setNamaLapangan] = useState('');
     const [deskripsi, setDeskripsi] = useState('');
     const [jadwalPagi, setJadwalPagi] = useState({});
@@ -19,10 +21,31 @@ export default function Addlapangan() {
     const [gambar, setGambar] = useState([]);
     const [image, setImage] = useState([]);
     const [createObjectURL, setCreateObjectURL] = useState([]);
-    const [error, setError] = useState('');
+    const [error1, setError] = useState('');
     const [message, setMessage] = useState('');
 
     let router = useRouter()
+
+    const { data: session, status } = useSession()
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    let url = ''
+    // url = `/api/checkmail?emailReq=${`ucihaar6@gmail.com`}`
+    // url = `/api/checkmail?emailReq=${`wowmissqueen@gmail.com`}`
+    if (session) {
+        url = `/api/checkmail?emailReq=${session.user.email}`
+    }
+    const { data: data, error } = useSWR(url, fetcher)
+
+    if (!data) {
+        return <div>Anda tidak Memilik akses untuk halaman ini</div>
+    } else if (error) {
+        return <div>Something went wrong</div>
+    }
+    let emailDb = data['message']
+
+    let namaVenue = ''
+    namaVenue = emailDb.namaVenue[0].namaVenue
+    console.log(namaVenue)
 
     const handlePost = async (e) => {
         e.preventDefault();

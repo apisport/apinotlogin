@@ -24,19 +24,18 @@ const LayoutAdmin = ({ children }) => {
     const { data: data, error } = useSWR(url, fetcher)
 
     if (!data) {
-        return <div>Anda tidak Memilik akses untuk halaman ini</div>
+        return <div>Anda tidak Memiliki akses untuk halaman ini</div>
     } else if (error) {
         return <div>Something went wrong</div>
     }
     let emailDb = data['message']
-    console.log(emailDb.namaVenue[0].namaVenue)
     //End
 
     //Session
     if (session) {
         if (emailDb.user.length != 0 || emailDb.mitraPending.length != 0) {
             return (
-                <div>Anda tidak Memilik akses untuk halaman ini</div>
+                <div>Anda tidak Memiliki akses untuk halaman ini</div>
             )
         } else {
             return (

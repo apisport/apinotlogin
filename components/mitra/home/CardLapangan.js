@@ -101,8 +101,6 @@ export default function CardLapangan({ props }) {
                                             jadwalMalam: JSON.stringify(props.jadwalMalam),
                                             hargaPagi: props.hargaPagi,
                                             hargaMalam: props.hargaMalam
-
-
                                         }
                                     }} >
                                         <button className='btn btn-success text-white p-2' style={{ backgroundColor: '#00cc36', color: 'rgb(255, 255, 255)' }}>
