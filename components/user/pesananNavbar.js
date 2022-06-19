@@ -21,7 +21,7 @@ const NavbarPesan = () => {
     }
 
     let transaksi = data['message']
-    console.log(transaksi)
+    // console.log(transaksi)
 
     return (
         <>
@@ -30,7 +30,7 @@ const NavbarPesan = () => {
                 </li>
 
                 <li className="nav-item">
-                    <Link href={'/pesanan-pending'}><a className="nav-link" > Notifikasi <span className='numberCircle'>{transaksi.pending.length}</span></a></Link>
+                    <Link href={'/pesanan-pending'}><a className="nav-link" > Pending <span className='numberCircle'>{transaksi.pending.length}</span></a></Link>
                 </li>
         </>
 

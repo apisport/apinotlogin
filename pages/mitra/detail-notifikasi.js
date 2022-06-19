@@ -81,7 +81,7 @@ export default function Home() {
                 }),
             });
             // reload the page
-            alert('Data sukses diupdate')
+            alert('Transaksi diterima')
             router.push('/mitra/transaksi-pending');
         } catch (error) {
             // Stop publishing state
@@ -110,9 +110,7 @@ export default function Home() {
             // stop deleting state
         }
     }
-    const updateTransaksi = () => {
 
-    }
     return (
         <div className="container">
             <h1 className="mb-3">Detail Transaksi</h1>

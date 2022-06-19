@@ -44,7 +44,7 @@ const LayoutAdmin = ({ children }) => {
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
                         <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
                     </Helmet>
-                    <Navbar></Navbar>
+                    <Navbar namaVenueProps={emailDb.namaVenue[0].namaVenue}></Navbar>
                     {
                         React.cloneElement(children, {
                             namaVenueProps: emailDb.namaVenue[0].namaVenue

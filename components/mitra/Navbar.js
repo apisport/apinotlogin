@@ -3,10 +3,9 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
-const Navbar = ({ props }) => {
-    let namaVenue = 'Scuttod'
+const Navbar = ({ namaVenueProps }) => {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/countnotifmitradb?namaVenueReq=${namaVenue}`, fetcher)
+    const { data: data, error } = useSWR(`/api/countnotifmitradb?namaVenueReq=${namaVenueProps}`, fetcher)
     const { data: session, status } = useSession()
 
     if (!data) {

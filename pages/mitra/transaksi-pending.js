@@ -4,10 +4,10 @@ import CardBayarDiTempat from "../../components/mitra/transaksi-pending/CardBaya
 import useSWR from 'swr'
 
 
-export default function TransaksiPending() {
+export default function TransaksiPending({namaVenueProps}) {
     let namaVenue = 'Scuttod'
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/transaksipendingdb?namaVenueReq=${namaVenue}`, fetcher)
+    const { data: data, error } = useSWR(`/api/transaksipendingdb?namaVenueReq=${namaVenueProps}`, fetcher)
 
     if (!data) {
         return <div>Loading...</div>
