@@ -19,12 +19,12 @@ export default function Register() {
 
   const handleSigninUser = (e) => {
     e.preventDefault()
-    signIn('google', { callbackUrl: '/register/register-profil' })
+    signIn('GOOGLE_ID', { callbackUrl: '/register/register-profil' })
 
   }
   const handleSigninMitra = (e) => {
     e.preventDefault()
-    signIn('google', { callbackUrl: '/register/mitra-register' })
+    signIn('GOOGLE_ID', { callbackUrl: '/register/mitra-register' })
 
   }
 

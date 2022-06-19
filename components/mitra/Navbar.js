@@ -1,11 +1,13 @@
 import React from 'react'
 import useSWR from 'swr'
 import Link from 'next/link'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Navbar = ({ props }) => {
     let namaVenue = 'Scuttod'
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data: data, error } = useSWR(`/api/countnotifmitradb?namaVenueReq=${namaVenue}`, fetcher)
+    const { data: session, status } = useSession()
 
     if (!data) {
         return <div>Loading...</div>
@@ -15,6 +17,10 @@ const Navbar = ({ props }) => {
 
 
     let transaksi = data['message']
+
+    const handleSignOut = (e) => {
+        signOut({ callbackUrl: '/' })
+    }
     // let transaksiPending = transaksi.filter(data => data.opsiBayar != "Full Bayar" && data.status == 'pending')
     // let transaksiDPBelumLunas = transaksi.filter(data => data.opsiBayar == "DP" && data.status == 'diterima')
     // let transaksiBayarDiTempat = transaksi.filter(data => data.opsiBayar == "Bayar di Tempat" && data.status == 'diterima')
@@ -53,8 +59,8 @@ const Navbar = ({ props }) => {
                                     <li className="nav-item">
                                         <div className="dropdown mb-3">
                                             <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
-                                                <img src="https://github.com/mdo.png" alt width={32} height={32} className="rounded-circle me-2" />
-                                                <strong>mdo</strong>
+                                                <img src={session.user.image} alt width={32} height={32} className="rounded-circle me-2" />
+                                                <strong>Admin</strong>
                                             </a>
                                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
                                                 <li><a className="dropdown-item" href="#">Profil Admin</a></li>
@@ -84,7 +90,7 @@ const Navbar = ({ props }) => {
                     <div className="gap-3">
                         <div className="dropdown">
                             <a href="#" className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt width={32} height={32} className="rounded-circle me-2" />
+                                <img src={session.user.image} alt width={32} height={32} className="rounded-circle me-2" />
                                 <strong>Admin</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">

@@ -28,9 +28,9 @@ const Navbar = () => {
         e.preventDefault()
         signOut()
     }
-    const handleSignin = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
-        signIn()
+        signIn('GOOGLE_ID', { callbackUrl: '/register/login' })
     }
 
     
@@ -99,7 +99,7 @@ const Navbar = () => {
                                 }
                                 {!session &&
                                     <>
-                                        <Link href='/login'><button className="btn btn-default btn-no-fill">Log In</button></Link>
+                                        <button onClick={handleLogin} className="btn btn-default btn-no-fill">Log In</button>
                                         <Link href='/register'><button className="btn btn-fill text-white">Register</button></Link>
                                     </>
                                 }
@@ -155,7 +155,7 @@ const Navbar = () => {
                         }
                         {!session &&
                             <>
-                                <Link href='/login'><button className="btn btn-default btn-no-fill">Log In</button></Link>
+                                <button onClick={handleLogin} className="btn btn-default btn-no-fill">Log In</button>
                                 <Link href='/register'><button className="btn btn-fill text-white">Register</button></Link>
                             </>
                         }

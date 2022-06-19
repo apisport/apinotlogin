@@ -12,9 +12,14 @@ const options = {
                     access_type: "offline",
                     response_type: "code"
                 }
+            },
+            sessions: {
+                jwt: true,
+                maxAge: 30*24*60*60
             }
         }),
     ],
+    secret: "secret token",
 }
 
 export default (req, res) => NextAuth(req, res, options)
