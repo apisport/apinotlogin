@@ -1,4 +1,5 @@
 import Router from 'next/router';
+import moment from 'moment';
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 // mengambil data dari collection Transaksi
@@ -13,7 +14,7 @@ async function getTransaksiUser(req, res) {
             .find({
                 email: emailReq,
                 status: 'pending'
-            }, { projection: { 'status': 1 } })
+            }, { projection: { 'status': 1  } })
             .sort({ idfavorit: -1 })
             .toArray();
         let diterima = await db
@@ -21,7 +22,7 @@ async function getTransaksiUser(req, res) {
             .find({
                 email: emailReq,
                 status: { $ne: 'pending' }
-            }, { projection: { 'status': 1 } })
+            }, { projection: { 'status': 1, 'tglMain': 1 } })
             .sort({ idfavorit: -1 })
             .toArray();
         let notifikasi = await db
@@ -32,9 +33,20 @@ async function getTransaksiUser(req, res) {
             }, { projection: { 'status': 1 } })
             .sort({ idfavorit: -1 })
             .toArray();
+        
+        let notaBaru = []
+        for (let i = 0; i < diterima.length; i++) {
+            var now = moment(new Date()); //todays date
+            var end = moment(diterima[i].tglMain); // another date
+            var duration = moment.duration(now.diff(end));
+            var days = Math.floor(duration.asDays());
+            if (days <= 0) {
+                notaBaru.push(diterima[i])
+            }
+        }
         let hasil = {}
         hasil['pending'] = pending,
-        hasil['diterima'] = diterima
+        hasil['diterima'] = notaBaru
         hasil['notifikasi'] = notifikasi
         // return the posts
         // return the posts

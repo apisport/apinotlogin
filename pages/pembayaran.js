@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react'
 import useSWR from "swr";
-import { now } from 'next-auth/client/_utils';
 
 export default function Home() {
 
@@ -331,9 +330,9 @@ export default function Home() {
             <div className="mt-4 text-center">
               <img src={createObjectURL} className="img-fluid" />
             </div>
-            <div className="d-flex flex-row mt-3">
+            {/* <div className="d-flex flex-row mt-3">
               <span className='font-weight-normal' style={{ color: 'red' }}><b>*Mohon untuk mengupload bukti pembayaran hingga 13:30 WIB atau pembayaran akan di cancel</b></span>
-            </div>
+            </div> */}
             <div className="d-grid gap-2 py-4 ">
               <button className="btn btn-primary p-3 fw-bold" type="submit" onClick={uploadToServer} style={{ backgroundColor: '#006E61' }}>Kirim</button>
             </div>

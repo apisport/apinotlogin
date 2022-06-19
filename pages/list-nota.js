@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react'
 import useSWR from 'swr';
 import Link from 'next/link';
-import Moment from 'react-moment';
 import moment from 'moment';
 import CardListNota from '../components/user/list-nota/CardListNota';
 

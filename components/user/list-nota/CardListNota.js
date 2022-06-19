@@ -15,7 +15,7 @@ export default function CardListNota({ props }) {
                             <h4><b>Tim:</b> {data.tim}</h4>
                             <h4><b>Lapangan:</b> {data.lapangan}</h4>
                             <h4><b>Opsi Pembayaran:</b> {data.opsiBayar}</h4>
-                            <h4><b>Total Bayar:</b> {`Rp 300.000,-`}</h4>
+                            <h4><b>Total Bayar:</b> {` Rp ${data.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`}</h4>
                             <hr></hr>
                             <h5><b>Diterima:</b> {data.diterima}</h5>
                             <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
@@ -25,7 +25,8 @@ export default function CardListNota({ props }) {
                             <Link href={{
                                 pathname: '/nota',
                                 query: {
-                                    idTransaksi: data._id
+                                    idTransaksi: data._id,
+                                    kodeNota: data._id.substring(0,8)
                                 }
                             }} >
                                 <a className="btn btn-success text-white p-3 mb-2">Lihat Nota</a>
