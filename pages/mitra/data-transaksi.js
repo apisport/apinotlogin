@@ -1,13 +1,46 @@
-export default function tableBuku() {
-    function myFunction() {
-        var x = document.getElementById("searchInput");
-        var y = document.getElementById("filterInput")
-        if (y.value === "tglBooking" || y.value === "tglPesan") {
-            x.type = "date";
-        } else {
-            x.type = "password";
-        }
+import useSWR from 'swr'
+import Pagination from '../../components/Pagination'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import moment from 'moment'
+
+export default function tableBuku({ namaVenueProps }) {
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(10)
+    const [filterSearch, setFilterSearch] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
+
+    let router = useRouter()
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    const { data: data, error } = useSWR(`/api/transaksidb?namaVenueReq=${namaVenueProps}`, fetcher)
+
+    if (!data) {
+        return <div>Loading...</div>
+    } else if (error) {
+        return <div>Something went wrong</div>
     }
+
+    let transaksi = data['message']
+
+
+    let searchArr = transaksi.filter((tblDat) => {
+        if (searchTerm == "") {
+            return tblDat
+        } else if (tblDat.nama.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return tblDat
+        }
+    })
+
+    //Tambahan Pagination
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    //Fixed Pagintion CurrentPosts hapus filter di bawah
+    let currentPosts = searchArr.slice(indexOfFirstPost, indexOfLastPost)
+    //Fixed Pagination CurrentPosts
+    const howManyPages = Math.ceil(searchArr.length / postsPerPage)
+    //Tambahan Pagination Current Post Map
+
     return (
         <div class="container-fluid">
             <div className="d-flex flex-row justify-content-center mb-5">
@@ -15,81 +48,73 @@ export default function tableBuku() {
             </div>
 
             <div class="row flex-row flex-nowrap mt-3">
-                <div className="col-5 col-md-5 text-nowrap">
-                    <div id="dataTable_length" className="dataTables_length" aria-controls="dataTable"><label className="form-label">Show&nbsp;
-                        <select className="d-inline-block form-select form-select-sm" value='tes'>
-                            <option value={5}>5</option>
-                            <option value={10}>10</option>
-                            <option value={20}>20</option>
-                            <option value={30}>30</option>
-                        </select>&nbsp;</label></div>
-                </div>
-                <div className="col-2 col-md-2">
-                    <div className="text-md-end dataTables_filter" id="dataTable_filter">
-                        <div>
-
-                            <select className=" form-select" id="filterInput" onChange={event => { myFunction() }}>
-                                <option>--Filter Search--</option>
-                                <option>Semua</option>
-                                <option>Nama Pemesan</option>
-                                <option>Nama Tim</option>
-                                <option value={'tglBooking'}>Tanggal Booking</option>
-                                <option value={'tglPesan'}>Tanggal Pesan</option>
-                                <option value={'lapangan'}>Lapangan</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-5 col-md-5">
+                <div className="col-12 col-md-12">
                     <div className="text-md-end dataTables_filter" id="dataTable_filter">
                         <input type="search"
                             className="form-control form-control-md"
-                            aria-controls="dataTable" placeholder="Search" id="searchInput"
+                            aria-controls="dataTable" placeholder="Cari (Nama Pemesan)" id="searchInput"
                             onChange={event => { setSearchTerm(event.target.value) }} />
                     </div>
                 </div>
             </div>
             {/* Tambahan Pagination Make Sure Math.ceil adalah searchArr.length */}
-            <p>Memuat 13 data, Jumlah keseluruhan data adalah 1333 data</p>
+            <p>Memuat {currentPosts.length} data, Jumlah keseluruhan data adalah {transaksi.length} data</p>
             <div className='d-flex flex-row justify-content-center'>
-                <table className="table table-responsive my-0" id="dataTable">
+                <table className="table table-responsive" id="dataTable">
                     <thead>
                         <tr>
-                            <th style={{ width: 56 }}>No</th>
+                            <th style={{ width: '12px' }}>No</th>
                             <th>Nama Pemesan</th>
                             <th>Nama Tim</th>
-                            <th>Tanggal Booking</th>
+                            <th>Tanggal Diterima</th>
                             <th>Tanggal Main</th>
                             <th>Harga</th>
                             <th>Lapangan</th>
                             <th>Opsi Pembayaran</th>
-                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Fadli Irawan Yasian Putro</td>
-                            <td>Kertosari Yakin FC</td>
-                            <td>28-03-2022</td>
-                            <td>30-03-2022</td>
-                            <td>Rp300.000</td>
-                            <td>Lapangan 1</td>
-                            <td>Bayar di Tempat</td>
-                            <td>Belum Lunas</td>
+                        {transaksi.length === 0 ? (
+                            <h2>Tidak ada data</h2>
+                        ) : (
+                            <>
+                                {currentPosts.map((data, index) => (
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{data.nama}</td>
+                                        <td>{data.tim}</td>
+                                        <td>{data.diterima}</td>
+                                        <td>{moment(data.tglMain, 'YYYY-MM-DD').format('DD/MM/YYYY')}</td>
+                                        <td>{` Rp ${data.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`}</td>
+                                        <td>{data.lapangan}</td>
+                                        <td>{data.opsiBayar}</td>
 
-                            <td><div className="btn-group-vertical btn-group-sm">
-                                <button type="button" className="btn btn-primary mb-2">Update</button>
-                                <button className="btn btn-success text-white mb-2"
-                                    value="a"
-                                    type="button"
-                                    style={{ marginLeft: 'auto', background: 'green' }}
-                                >Lihat Detail
-                                </button>
-                            </div>
-                            </td>
-                        </tr>
+                                        <td><div className="btn-group-vertical btn-group-sm">
+                                            <Link href={{
+                                                pathname: '/mitra/detail-transaksi',
+                                                query: {
+                                                    idTransaksi: data._id
+                                                }
+
+                                            }}>
+                                                <button className="btn btn-success text-white mb-2"
+                                                    value="a"
+                                                    type="button"
+                                                    style={{ marginLeft: 'auto', background: 'green' }}
+                                                >Lihat Detail
+                                                </button>
+                                            </Link>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                <div className='d-flex flex-row justify-content-center'>
+                                    <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
+                                </div>
+                            </>
+                        )}
+
                     </tbody>
                 </table>
             </div>

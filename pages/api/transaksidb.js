@@ -2,6 +2,31 @@ const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 // mengambil data dari collection Transaksi
 
+async function getTransaksi(req, res) {
+    const { namaVenueReq } = req.query
+    try {
+        // connect to the database
+        let { db } = await connectToDatabase();
+        let transaksi = await db
+            .collection('transaksi')
+            .find({
+                namaVenue: namaVenueReq
+            })
+            .sort({ idfavorit: -1 })
+            .toArray();
+        return res.json({
+            message: JSON.parse(JSON.stringify(transaksi)),
+            success: true,
+        });
+    } catch (error) {
+        // return the error
+        return res.json({
+            message: new Error(error).message,
+            success: false,
+        });
+    }
+}
+
 async function addTransaksi(req, res) {
     try {
         // connect to the database

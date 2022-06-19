@@ -7,7 +7,7 @@ import useSWR from 'swr'
 export default function TransaksiPending({namaVenueProps}) {
     let namaVenue = 'Scuttod'
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/transaksipendingdb?namaVenueReq=${namaVenueProps}`, fetcher)
+    const { data: data, error } = useSWR(`/api/transaksipendingdb?namaVenueReq=${namaVenueProps}`, fetcher, { refreshInterval: 1000 })
 
     if (!data) {
         return <div>Loading...</div>

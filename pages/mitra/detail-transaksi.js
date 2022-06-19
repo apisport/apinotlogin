@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import useSWR from "swr";
+import Router from 'next/router';
 
 export default function DetailNotifikasi() {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -24,91 +25,8 @@ export default function DetailNotifikasi() {
     let tglMain = transaksi.tglMain
     let diterima = transaksi.diterima
 
-    const SubmitTolak = async (e) => {
-        e.preventDefault();
-        // reset error and message
-        // fields check
-        // post structure
-        let transaksi = {
-            nama,
-            email,
-            lapangan,
-            namaVenue,
-            tglMain,
-            diterima,
-        };
-        // console.log('Yang Mau di push:')
-        // console.log(transaksi)
-        // save the post
-        let response = await fetch('/api/notifikasiuserdb', {
-            method: 'POST',
-            body: JSON.stringify(transaksi),
-        });
-        // get the data
-        let data = await response.json();
-        if (data.success) {
-            // reset the fields
-            tolakTransaksi()
-            alert('Transaksi berhasil ditolak!')
-            router.push('/mitra/transaksi-pending')
-        }
-        else {
-            // set the error
-            console.log(data.message);
-        }
-    }
-
-    const SubmitTerima = async (e) => {
-        e.preventDefault();
-        let statusT = ''
-        if (transaksi.opsiBayar == 'Full Bayar Transfer') {
-            statusT='lunas'
-        } else {
-            statusT='diterima'
-        }
-        console.log(statusT)
-        // fields check
-        try {
-            // Update post
-            await fetch('/api/transaksipendingdb', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    status: statusT,
-                    idTransaksi: transaksi._id
-                }),
-            });
-            // reload the page
-            alert('Transaksi diterima')
-            router.push('/mitra/transaksi-pending');
-        } catch (error) {
-            // Stop publishing state
-            console.log('Not Working')
-        }
-    }
-
-    const tolakTransaksi = async (e) => {
-        try {
-            console.log('Try')
-            // Delete post
-            await fetch('/api/transaksidb', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    _id: transaksi._id
-                }),
-            });
-            // reset the deleting state
-            // reload the page
-            alert('Transaksi Ditolak')
-            router.push('/mitra/transaksi-pending')
-        } catch (error) {
-            // stop deleting state
-        }
+    const kembali = () => {
+        Router.back()
     }
 
     return (
@@ -187,12 +105,9 @@ export default function DetailNotifikasi() {
                             <img className='img-fluid' src={`/uploads/${transaksi.buktiBayar}`} />
                         </div>
                         <div className='row mt-3'>
-                            <div className='col-6   d-grid col-lg-6 mb-4'>
-                                <button type="button" className="btn btn-outline-secondary" onClick={SubmitTerima} style={{ backgroundColor: '#00cc36', color: 'rgb(255, 255, 255)', borderRadius: '5cm' }}>Terima</button>
-                            </div>
-                            <div className='col-6  d-grid col-lg-6 mb-4'>
-                                <button class="btn btn-outline-warning p-3" type="button" onClick={SubmitTolak} style={{ backgroundColor: '#ed0010', color: 'rgb(255, 255, 255)', borderRadius: '5cm' }}>Tolak</button>
-                            </div>                       
+                            <div className='col-12 d-grid col-lg-12 mb-4'>
+                                <button type="button" className="btn btn-outline-secondary" onClick={kembali} style={{ borderRadius: '5cm' }}>Kembali</button>
+                            </div>                   
                         </div>
 
                     </form>
