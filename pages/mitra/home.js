@@ -111,6 +111,9 @@ export default function Home({namaVenueProps}) {
                     )}
                 </div>
             </div>
+            <div className='row'>
+                <a className='btn btn-fill text-white mt-3' href='/mitra/tambah-lapangan'>+ Tambah Lapangan</a>
+            </div>
 
 
 

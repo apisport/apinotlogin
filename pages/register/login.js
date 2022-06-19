@@ -50,10 +50,10 @@ export default function Register() {
     return (
         <>
             {session &&
-                <div><h3>Logged In</h3></div>
+                <div><h3 className='text-white'>Logged In</h3></div>
             }
             {!session &&
-                <div><h2>Not Logged In</h2></div>
+                <div><h2 className='text-white'>Not Logged In</h2></div>
             }
         </>
     )

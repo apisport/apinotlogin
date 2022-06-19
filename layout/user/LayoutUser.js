@@ -14,6 +14,9 @@ const LayoutUser = ({ children }) => {
     const { data: session, status } = useSession()
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     let url = ''
+    const handleSignOut = (e) => {
+        signOut('GOOGLE_ID', { callbackUrl: '/' })
+    }
     // url = `/api/checkmail?emailReq=${`ucihaar6@gmail.com`}`
     // url = `/api/checkmail?emailReq=${`wowmissqueen@gmail.com`}`
     if (session) {
@@ -49,7 +52,11 @@ const LayoutUser = ({ children }) => {
     if (session) {
         if (emailDb.mitra.length != 0 || emailDb.mitraPending.length != 0) {
             return (
+                <>
                 <div>Akun Mitra tidak dapat mengakses untuk halaman ini, mohon untuk Sign Out terlebih dahulu</div>
+                {/* <button className='btn btn-primary' onClick={handleSignOut()}>Sign Out</button> */}
+                </>
+                
             )
         } else {
             return (
