@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import Moment from 'react-moment';
 import moment from 'moment';
+import CardListNota from '../components/user/list-nota/CardListNota';
 
 export default function ListNota() {
     const { data: session, status } = useSession()
@@ -46,22 +47,8 @@ export default function ListNota() {
             <h4><b>Nota Baru</b></h4>
             <hr></hr>
             <div className="row row-cols-1 row-cols-md-3 g-4 mt-1">
-
-                <div className="shadow-sm col-12 col-lg-5 border border-2 mb-1 p-3 text-start">
-                    <h3>Scudetto</h3>
-                    <h4><b>Nama Pemesan:</b>{session.user.name}</h4>
-                    <h4><b>Tim:</b>{session.user.name}</h4>
-                    <h4><b>Lapangan:</b>{session.user.name}</h4>
-                    <h4><b>Opsi Pembayaran:</b> {session.user.name}</h4>
-                    <h4><b>Total Bayar:</b> {`Rp 300.000,-`}</h4>
-                    <hr></hr>
-                    <h5><b>Diterima:</b> {123}</h5>
-                    <h5><b>Tanggal Main:</b> {123}</h5>
-                    <hr></hr>
-                    <h5 ><b>Status: Diterima</b></h5>
-                    <hr></hr>
-                    <a className="btn btn-success text-white p-3 mb-2">Lihat Nota</a>
-                </div>
+                <CardListNota props={notaBaru}/>
+                
 
             </div>
             <hr></hr>
