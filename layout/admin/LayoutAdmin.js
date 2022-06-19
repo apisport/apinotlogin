@@ -17,7 +17,7 @@ const LayoutAdmin = ({ children }) => {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     let url = ''
     // url = `/api/checkmail?emailReq=${`ucihaar6@gmail.com`}`
-    url = `/api/checkmail?emailReq=${`wowmissqueen@gmail.com`}`
+    // url = `/api/checkmail?emailReq=${`wowmissqueen@gmail.com`}`
     if (session) {
         url = `/api/checkmail?emailReq=${session.user.email}`
     }
@@ -33,55 +33,60 @@ const LayoutAdmin = ({ children }) => {
     //End
 
     //Session
-    // if (session) {
-    //     if (emailDb.user.length != 0 || emailDb.mitraPending.length != 0) {
-    //         return (
-    //             <div>Anda tidak Memilik akses untuk halaman ini</div>
-    //         )
-    //     } else {
-    //         return (
-    //             <div className="container-xxl mx-auto p-0  position-relative header-2-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
-    //                 <Helmet>
-    //                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-    //                     <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
-    //                 </Helmet>
-    //                 <Navbar></Navbar>
-    //                 {children}
-    //                 <Footer></Footer>
-    //                 <Helmet>
-    //                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-    //                     <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
-    //                 </Helmet>
-    //             </div>
-    //         )
-    //     }
-    // } else {
-    //     return (
-    //         <div>Anda tidak Memilik akses untuk halaman ini</div>
-    //     )
-    // }
+    if (session) {
+        if (emailDb.user.length != 0 || emailDb.mitraPending.length != 0) {
+            return (
+                <div>Anda tidak Memilik akses untuk halaman ini</div>
+            )
+        } else {
+            return (
+                <div className="container-xxl mx-auto p-0  position-relative header-2-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
+                    <Helmet>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+                        <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
+                    </Helmet>
+                    <Navbar></Navbar>
+                    {
+                        React.cloneElement(children, {
+                            namaVenueProps: emailDb.namaVenue[0].namaVenue
+                        })
+                    }
+                    {/* {children} */}
+                    <Footer></Footer>
+                    <Helmet>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+                        <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
+                    </Helmet>
+                </div>
+            )
+        }
+    } else {
+        return (
+            <div>Anda tidak Memilik akses untuk halaman ini</div>
+        )
+    }
     //End
 
-    return (
-        <div className="container-xxl mx-auto p-0  position-relative header-2-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
-            <Helmet>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-                <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
-            </Helmet>
-            <Navbar></Navbar>
-            {
-                React.cloneElement(children, {
-                    namaVenueProps: emailDb.namaVenue[0].namaVenue
-                })
-            }
-            {/* {children} */}
-            <Footer></Footer>
-            <Helmet>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
-                <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
-            </Helmet>
-        </div>
+    // return (
+    //     <div className="container-xxl mx-auto p-0  position-relative header-2-2" style={{ fontFamily: '"Poppins", sans-serif' }}>
+    //         <Helmet>
+    //             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+    //             <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
+    //         </Helmet>
+    //         <Navbar></Navbar>
+    //         {
+    //             React.cloneElement(children, {
+    //                 namaVenueProps: emailDb.namaVenue[0].namaVenue
+    //             })
+    //         }
+    //         {/* {children} */}
+    //         <Footer></Footer>
+    //         <Helmet>
+    //             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="undefined" crossorigin="anonymous"></script>
+    //             <script src="../styles/bootstrap/js/bootstrap.min.js"></script>
+    //         </Helmet>
+    //     </div>
 
-    )
+    // )
 }
 export default LayoutAdmin

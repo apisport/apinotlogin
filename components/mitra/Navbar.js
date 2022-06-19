@@ -63,9 +63,7 @@ const Navbar = ({ props }) => {
                                                 <strong>Admin</strong>
                                             </a>
                                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
-                                                <li><a className="dropdown-item" href="#">Profil Admin</a></li>
-                                                <li><hr className="dropdown-divider" /></li>
-                                                <li><a className="dropdown-item" href="#">Sign out</a></li>
+                                                <li><a className="dropdown-item" onClick={handleSignOut}>Sign out</a></li>
                                             </ul>
                                         </div>
 
@@ -94,9 +92,7 @@ const Navbar = ({ props }) => {
                                 <strong>Admin</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                <li><a className="dropdown-item" href="/mitra/profil">Profil Admin</a></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="#">Sign out</a></li>
+                                <li><a className="dropdown-item" onClick={handleSignOut}>Sign out</a></li>
                             </ul>
                         </div>
                     </div>

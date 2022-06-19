@@ -88,7 +88,7 @@ export default function CardLapangan({props}) {
                                                 <div className='card'>
                                                     <div className='card-body'>
                                                         <span>{data}</span><br></br>
-                                                        <span>{gabunganHarga[index].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</span>
+                                                        <span>Rp {gabunganHarga[index].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</span>
                                                     </div>
                                                 </div>
                                             </div>
