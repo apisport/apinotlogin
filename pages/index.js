@@ -12,7 +12,7 @@ import { useState } from 'react'
 export default function Home() {
   const [search, setSearch] = useState('')
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
-  const { data: data, error } = useSWR('/api/homefavoritdb', fetcher)
+  const { data: data, error } = useSWR('/api/homefavoritdb', fetcher, {refreshInterval: 1000})
 
   if (!data) {
     return <div>Loading...</div>

@@ -2,11 +2,12 @@
 import Carousel from '../components/user/detail-lapangan/Carousel'
 import CardJadwal from '../components/user/detail-lapangan/CardJadwal'
 import useSWR from "swr";
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useEffect } from 'react';
+import { Alert } from 'react-bootstrap';
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
     let todayVar = yyyy + '-' + mm + '-' + dd;
     let available = true
     let jamTerisi = []
+    let jamFilter = []
 
     //State of Decay
     const [_dataMain, setDataMain] = useState({});
@@ -37,7 +39,7 @@ export default function Home() {
 
     //Suwir
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/detaillapangandb?idLapangan=${idLapangan}&namaVenueReq=${namaVenue}&namaLapanganReq=${namaLapangan}&tglMainReq=${tglMain}`, fetcher)
+    const { data: data, error } = useSWR(`/api/detaillapangandb?idLapangan=${idLapangan}&namaVenueReq=${namaVenue}&namaLapanganReq=${namaLapangan}&tglMainReq=${tglMain}`, fetcher, {refreshInterval: 1000})
 
     console.log(tglMain)
     if (!data) {
@@ -57,7 +59,9 @@ export default function Home() {
         setJadwalPesan([])
         setTotalHarga(0)
         setAvailableJam()
+        setAvailableJamFilter()
         setAvailableHari()
+        
 
     }
 
@@ -69,6 +73,14 @@ export default function Home() {
             }
         }
         // console.log(jamTerisi)
+    }
+
+    const setAvailableJamFilter = () => {
+        // console.log('Jam Booked')
+        jamFilter = jadwalPesan.filter(value => jamTerisi.includes(value));
+        // console.log(jamTerisi)
+        console.log('Jam Filter')
+        console.log(jamFilter)
     }
 
     const setAvailableHari = () => {
@@ -107,6 +119,7 @@ export default function Home() {
     }
 
     setAvailableJam()
+    setAvailableJamFilter()
     setAvailableHari()
 
 
@@ -170,6 +183,8 @@ export default function Home() {
              isCheck ? setTotalHarga(totalHarga => totalHarga + parseInt(harga)) : setTotalHarga(totalHarga => totalHarga - parseInt(harga))
          } */
         console.log(totalHarga + ' ,' + harga)
+        setAvailableJam()
+        setAvailableJamFilter()
     }
 
     // const setCheck = () => {
@@ -210,23 +225,29 @@ export default function Home() {
     //Handle Post Update DataMain Lapangan
     const handlePost = async (e) => {
         e.preventDefault()
-        if (jadwalPesan.length > 3) {
-            alert('Batas Maksimum Pemesanan adalah 3')
-        } else if (jadwalPesan.length == 0) {
-            alert('Tidak ada Jadwal yang dipesan')
+        if (jamFilter.length === 0) {
+            if (jadwalPesan.length > 3) {
+                alert('Batas Maksimum Pemesanan adalah 3')
+            } else if (jadwalPesan.length == 0) {
+                alert('Tidak ada Jadwal yang dipesan')
+            }
+            else {
+                router.push({
+                    pathname: '/pembayaran',
+                    query: {
+                        jadwalPesanReq: JSON.stringify(jadwalPesan),
+                        totalHargaReq: totalHarga,
+                        namaVenueReq: lapangan.infoVenue[0].namaVenue,
+                        namaLapanganReq: infoLapangan.namaLapangan,
+                        tglMainReq: tglMain
+                    }
+                })
+            }
+        } else {
+            alert('Mohon Maaf jadwal sudah dipesan, Mohon untuk memilih jadwal kembali')
+            Router.reload()
         }
-        else {
-            router.push({
-                pathname: '/pembayaran',
-                query: {
-                    jadwalPesanReq: JSON.stringify(jadwalPesan),
-                    totalHargaReq: totalHarga,
-                    namaVenueReq: lapangan.infoVenue[0].namaVenue,
-                    namaLapanganReq: infoLapangan.namaLapangan,
-                    tglMainReq: tglMain
-                }
-            })
-        }
+        
         // e.preventDefault();
 
         // // reset error and message
