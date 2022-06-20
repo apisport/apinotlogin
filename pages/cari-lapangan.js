@@ -24,18 +24,23 @@ export default function Lapangan() {
     }
 
     let lapangan = data['message']
-    console.log('Search:')
-    console.log(lapangan)
 
+    let searchArr = lapangan.filter((tblDat) => {
+        if (searchTerm == "") {
+            return tblDat
+        } else if (tblDat.namaVenue.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return tblDat
+        }
+    })
 
-    // //Tambahan Pagination
-    // const indexOfLastPost = currentPage * postsPerPage;
-    // const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    // //Fixed Pagintion CurrentPosts hapus filter di bawah
-    // let currentPosts = lapangan.slice(indexOfFirstPost, indexOfLastPost)
-    // //Fixed Pagination CurrentPosts
-    // const howManyPages = Math.ceil(lapangan.length / postsPerPage)
-    // //Tambahan Pagination Current Post Map
+    //Tambahan Pagination
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    //Fixed Pagintion CurrentPosts hapus filter di bawah
+    let currentPosts = searchArr.slice(indexOfFirstPost, indexOfLastPost)
+    //Fixed Pagination CurrentPosts
+    const howManyPages = Math.ceil(searchArr.length / postsPerPage)
+    //Tambahan Pagination Current Post Map
 
 
     return (
@@ -65,7 +70,7 @@ export default function Lapangan() {
                     <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${search}`}</h2>
                     <hr></hr>
                     <div className="row justify-content-center row-cols-1 row-cols-md-3">
-                        {/* {currentPosts.length === 0 ? (
+                        {currentPosts.length === 0 ? (
                             <><h3>{`Tidak ada Data Lapangan dengan nama ${search} ditemukan`}</h3></>
                         ) : (
                             <>
@@ -74,14 +79,14 @@ export default function Lapangan() {
                                     <CardRekomendasi props={data} />
                                 ))}
                             </>
-                        )} */}
+                        )}
                         
                     </div>
-                    {/* <span>Memuat {currentPosts.length} data</span> */}
+                    <span>Memuat {currentPosts.length} data</span>
                 </div>
             </div>
             <div className='container d-flex mt-4 text-center justify-content-center'>
-                {/* <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} /> */}
+                <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
             </div>
 
 
