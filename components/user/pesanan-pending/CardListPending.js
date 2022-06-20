@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Pagination from "../../Pagination";
 
-export default function CardListNota({ props }) {
+export default function CardListPending({ props }) {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(4)
     const [filterSearch, setFilterSearch] = useState('')
@@ -32,7 +32,8 @@ export default function CardListNota({ props }) {
                 {props.length === 0 ? (
                     <h2>Tidak ada data Pesanan</h2>
                 ) : (
-                    <>
+                        <>
+                            
                         <div className="btn-group col-md-12">
                             <input type="text" className="form-control col-12 mt-2 col-md-12 mb-3"
                                 placeholder="Cari Transaksi Disini (Nama Venue)"
@@ -42,31 +43,38 @@ export default function CardListNota({ props }) {
                             />
 
                         </div>
-                        {currentPosts.map((data, index) => (
-                            <div className="shadow-sm col-12 col-lg-5 border border-2 mb-1 p-3 text-start">
-                                <h1><b>{data.namaVenue}</b></h1>
-                                <h4><b>Nama Pemesan:</b> {data.nama}</h4>
-                                <h4><b>Tim:</b> {data.tim}</h4>
-                                <h4><b>Lapangan:</b> {data.lapangan}</h4>
-                                <h4><b>Opsi Pembayaran:</b> {data.opsiBayar}</h4>
-                                <h4><b>Total Bayar:</b> {` Rp ${data.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`}</h4>
-                                <hr></hr>
-                                <h5><b>Dikirim:</b> {data.diterima}</h5>
-                                <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
-                                <hr></hr>
-                                <h5 ><b>Status: {data.status.charAt(0).toUpperCase() + data.status.slice(1)}</b></h5>
-                                <hr></hr>
-                                <Link href={{
-                                    pathname: '/nota',
+                            {currentPosts.map((data, index) => (
+                            <Link href={{
+                                    pathname: '/detail-transaksi',
                                     query: {
                                         idTransaksi: data._id,
-                                        kodeNota: data._id.substring(0, 8)
                                     }
                                 }} >
-                                    <a className="btn btn-success text-white p-3 mb-2">Lihat Nota</a>
-                                </Link>
+                                    <div className="shadow-sm col-12 col-lg-5 border border-2 mb-1 p-3 text-start">
+                                        <h1><b>{data.namaVenue}</b></h1>
+                                        <h4><b>Nama Pemesan:</b> {data.nama}</h4>
+                                        <h4><b>Tim:</b> {data.tim}</h4>
+                                        <h4><b>Lapangan:</b> {data.lapangan}</h4>
+                                        <h4><b>Opsi Pembayaran:</b> {data.opsiBayar}</h4>
+                                        <h4><b>Total Bayar:</b> {` Rp ${data.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`}</h4>
+                                        <hr></hr>
+                                        <h5><b>Dikirim:</b> {data.diterima}</h5>
+                                        <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
+                                        <hr></hr>
+                                        <h5 ><b>Status: {data.status.charAt(0).toUpperCase() + data.status.slice(1)}</b></h5>
+                                        <hr></hr>
+                                        <Link href={{
+                                            pathname: '/detail-transaksi',
+                                            query: {
+                                                idTransaksi: data._id,
+                                            }
+                                        }} >
+                                            <a className="btn btn-success text-white p-3 mb-2">Lihat Nota</a>
+                                        </Link>
 
-                            </div>
+                                    </div>
+                                </Link>
+                            
                         ))}
 
                     </>

@@ -12,7 +12,7 @@ const NavbarPesan = () => {
     if (session) {
         url = `/api/navbarpesandb?emailReq=${session.user.email}`
     }
-    const { data: data, error } = useSWR(url, fetcher)
+    const { data: data, error } = useSWR(url, fetcher, {refreshInterval: 1000})
 
     if (!data) {
         return <li></li>

@@ -1,11 +1,11 @@
 import { Router } from "next/router";
 import Link from "next/link";
 
-export default function CardListNota({ props }) {
+export default function CardListNotaBaru({ props }) {
     return (
         <>
             {props.length === 0 ? (
-                <h2>Tidak ada data</h2>
+                <h2>Tidak ada Nota Baru</h2>
             ) : (
                 <>
                     {props.map((data, index) => (

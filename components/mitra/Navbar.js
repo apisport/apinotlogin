@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 
 const Navbar = ({ namaVenueProps }) => {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/countnotifmitradb?namaVenueReq=${namaVenueProps}`, fetcher)
+    const { data: data, error } = useSWR(`/api/countnotifmitradb?namaVenueReq=${namaVenueProps}`, fetcher, {refreshInterval: 1000})
     const { data: session, status } = useSession()
 
     if (!data) {

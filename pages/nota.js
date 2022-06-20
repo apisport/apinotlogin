@@ -103,7 +103,17 @@ export default function Home() {
                                                 <label>Total Bayar : </label>
                                                 <input type="email" className="form-control" value={` Rp ${nota.harga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`} readOnly />
                                             </div>
+                                            
                                         </div>
+                                        {nota.opsiBayar === 'DP' &&
+                                            <div className="d-flex flex-row justify-content-center">
+                                                <div className="form-group">
+                                                    <label>Harga DP : </label>
+                                                    <input type="email" className="form-control" value={` Rp ${nota.hargaDP.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`} readOnly />
+                                                </div>
+                                            </div>
+                                            
+                                        }
                                         <hr />
                                         <div className="address p-2">
                                         </div>

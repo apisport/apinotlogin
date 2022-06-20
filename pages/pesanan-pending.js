@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import { useSession } from 'next-auth/react'
-
+import moment from 'moment'
+import CardListPending from '../components/user/pesanan-pending/CardListPending'
 
 export default function PesananPending() {
     const {data: session} = useSession()
@@ -15,71 +16,73 @@ export default function PesananPending() {
 
 
     let transaksi = data['message']
+    console.log(transaksi)
 
+    const deleteNotifikasi = async (e) => {
+        try {
+            // Delete post
+            await fetch('/api/transaksipendinguserdb', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    emailReq: session.user.email
+                }),
+            });
+            // reset the deleting state
+            // reload the page
+        } catch (error) {
+            // stop deleting state
+        }
+    }
 
     return (
         <>
-            <div className="d-flex flex-row justify-content-center">
-                <h1>Konfirmasi Booking</h1>
-            </div>
-
             <div className="container my-2">
+                <hr></hr>
+                <h4><b>Transaksi Pending</b></h4>
+                <hr></hr>
+                <CardListPending props={transaksi.pending} />
+                <hr></hr>
+                <h4><b>Transaksi Ditolak</b></h4>
+                {transaksi.notifikasi.length != 0 &&
+                    <button className='btn btn-danger' onClick={deleteNotifikasi}>Hapus Semua</button>
+                }
+                <div className='row mt-3'>
+                    {transaksi.notifikasi.length === 0 ? (
+                        <h3>Tidak ada notifikasi</h3>
+                    ) : (
+                        <>
+                            {transaksi.notifikasi.map((data, index) => (
 
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Menunggu Persetujuan <span className='numberCircle'>{transaksiPending.length}</span></button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">DP Belum Lunas <span className='numberCircle'>{transaksiDPBelumLunas.length}</span></button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="profile" aria-selected="false">Bayar di Tempat <span className='numberCircle'>{transaksiBayarDiTempat.length}</span></button>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div className="row">
+                                <div className='card mt-3 p-2'>
+                                    {data.status === 'ditolak' &&
+                                        <div>
+                                            <h4><b>Pesanan Ditolak</b></h4>
+                                            <span><b>Nama Venue:</b> {data.namaVenue}</span><br></br>
+                                            <span><b>Lapangan:</b> {data.lapangan}</span><br></br>
+                                            <span><b>Dibuat:</b> {data.diterima}</span><br></br>
+                                            <span><b>Tgl Main:</b> {moment(data.tglMain, 'YYYY-MM-DD').format('DD/MM/YYYY')}</span>
+                                        </div>
+                                    }
+                                </div>
+                            ))}
 
-                            <div className="row p-0" style={{ backgroundColor: 'white' }}>
-                                {/* ROW CONTENT */}
-                                <div className="row p-3 justify-content-center">
-                                    <CardTransaksiPending props={transaksiPending} />
-                                </div>
-                                {/* END ROW */}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div className="row d-flex justify-content-center align-items-center mt-4">
-                            
-                            <div className="row p-0" style={{ backgroundColor: 'white' }}>
-                                {/* ROW CONTENT */}
-                                <div className="row p-3 justify-content-center">
-                                    <CardDPBelumLunas props={transaksiDPBelumLunas} />
-                                </div>
-                                {/* END ROW */}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="profile-tab">
-                        <div className="row d-flex justify-content-center align-items-center mt-4">
-                            <div className="btn-group col-md-12">
-                                <input type="text" className="form-control col-10 mt-2 col-md-10" placeholder="Cari Transaksi Disini (Nama Pemesan)" />
-                                <a href='/user/cari-lapangan' className="form-control col-2 mt-2 col-sm-2 btn shadow-sm" style={{ backgroundColor: '#ffbe2e' }}><button ><i className="fa fa-search text-white"></i></button></a>
-                            </div>
-                            <div className="row p-0" style={{ backgroundColor: 'white' }}>
-                                {/* ROW CONTENT */}
-                                <div className="row p-3 justify-content-center">
-                                    <CardBayarDiTempat props={transaksiBayarDiTempat} />
-                                </div>
-                                {/* END ROW */}
-                            </div>
-                        </div>
-                    </div>
+                        </>
+                    )}
+
+
+
                 </div>
+                <hr></hr>
+
+
+
+
+
 
             </div>
-
         </>
     )
 
