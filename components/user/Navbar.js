@@ -26,7 +26,7 @@ const Navbar = () => {
 
     const handleSignout = (e) => {
         e.preventDefault()
-        signOut()
+        signOut({callbackUrl: '/'})
     }
     const handleLogin = (e) => {
         e.preventDefault()

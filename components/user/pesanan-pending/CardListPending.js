@@ -69,7 +69,7 @@ export default function CardListPending({ props }) {
                                                 idTransaksi: data._id,
                                             }
                                         }} >
-                                            <a className="btn btn-success text-white p-3 mb-2">Lihat Nota</a>
+                                            <a className="btn btn-success text-white p-3 mb-2">Lihat Detail</a>
                                         </Link>
 
                                     </div>
