@@ -6,12 +6,19 @@ async function getLapangan(req, res) {
     try {
         // connect to the database
         let { db } = await connectToDatabase();
+        let venue = await db
+            .collection('mitra')
+            .find({
+                "namaVenue" : {$regex : `/.*${namaVenueReq}.*/i`}
+            })
+            .toArray();
+        
         let searchMitra = await db
             .collection('mitra')
             .aggregate([
                 {
                     $match: {
-                        namaVenue: namaVenueReq
+                        namaVenue: 'Lapangan Surya Indah'
                     }
                 },
                 {
@@ -40,7 +47,7 @@ async function getLapangan(req, res) {
             .toArray()
         // return the posts
         return res.json({
-            message: JSON.parse(JSON.stringify(searchMitra)),
+            message: JSON.parse(JSON.stringify(venue)),
             success: true,
         });
     } catch (error) {

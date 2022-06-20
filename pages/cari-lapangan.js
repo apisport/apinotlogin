@@ -3,6 +3,7 @@ import CardRekomendasi from '../components/user/lapangan/CardRekomendasi'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import Link from 'next/link'
 
 
 export default function Lapangan() {
@@ -23,23 +24,18 @@ export default function Lapangan() {
     }
 
     let lapangan = data['message']
+    console.log('Search:')
+    console.log(lapangan)
 
-    let searchArr = lapangan.filter((tblDat) => {
-        if (searchTerm == "") {
-            return tblDat
-        } else if (tblDat.namaVenue.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return tblDat
-        }
-    })
 
-    //Tambahan Pagination
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    //Fixed Pagintion CurrentPosts hapus filter di bawah
-    let currentPosts = searchArr.slice(indexOfFirstPost, indexOfLastPost)
-    //Fixed Pagination CurrentPosts
-    const howManyPages = Math.ceil(searchArr.length / postsPerPage)
-    //Tambahan Pagination Current Post Map
+    // //Tambahan Pagination
+    // const indexOfLastPost = currentPage * postsPerPage;
+    // const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    // //Fixed Pagintion CurrentPosts hapus filter di bawah
+    // let currentPosts = lapangan.slice(indexOfFirstPost, indexOfLastPost)
+    // //Fixed Pagination CurrentPosts
+    // const howManyPages = Math.ceil(lapangan.length / postsPerPage)
+    // //Tambahan Pagination Current Post Map
 
 
     return (
@@ -51,8 +47,17 @@ export default function Lapangan() {
                 <div className="container my-4">
                     <div className="row d-flex justify-content-center align-items-center">
                         <div className="btn-group col-md-12">
-                            <input type="text" className="form-control col-10 mt-2 col-md-10" placeholder="Cari Lapangan Disini" />
-                            <a href='/cari-lapangan' className="form-control col-2 mt-2 col-sm-2 btn shadow-sm" style={{ backgroundColor: '#ffbe2e' }}><button ><i className="fa fa-search text-white"></i></button></a>
+                            <input type="text" className="form-control col-10 mt-2 col-md-10" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Cari Lapangan Disini" />
+                            <Link href={{
+                                pathname: '/cari-lapangan',
+                                query: {
+                                    search: data._id
+                                }
+
+                            }}>
+                                <button className="form-control col-2 mt-2 col-sm-2 btn shadow-sm" style={{ backgroundColor: '#ffbe2e' }}><i className="fa fa-search text-white"></i>
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -60,7 +65,7 @@ export default function Lapangan() {
                     <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${search}`}</h2>
                     <hr></hr>
                     <div className="row justify-content-center row-cols-1 row-cols-md-3">
-                        {currentPosts.length === 0 ? (
+                        {/* {currentPosts.length === 0 ? (
                             <><h3>{`Tidak ada Data Lapangan dengan nama ${search} ditemukan`}</h3></>
                         ) : (
                             <>
@@ -69,12 +74,14 @@ export default function Lapangan() {
                                     <CardRekomendasi props={data} />
                                 ))}
                             </>
-                        )}
+                        )} */}
+                        
                     </div>
+                    {/* <span>Memuat {currentPosts.length} data</span> */}
                 </div>
             </div>
             <div className='container d-flex mt-4 text-center justify-content-center'>
-                <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} />
+                {/* <Pagination pages={howManyPages} setCurrentPage={setCurrentPage} /> */}
             </div>
 
 
