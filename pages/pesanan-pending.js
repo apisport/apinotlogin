@@ -1,24 +1,21 @@
-import CardTransaksiPending from "../../components/mitra/transaksi-pending/CardTransaksiPending"
-import CardDPBelumLunas from "../../components/mitra/transaksi-pending/CardDPBelumLunas"
-import CardBayarDiTempat from "../../components/mitra/transaksi-pending/CardBayarDiTempat"
 import useSWR from 'swr'
+import { useSession } from 'next-auth/react'
 
 
-export default function TransaksiPending({namaVenueProps}) {
+export default function PesananPending() {
+    const {data: session} = useSession()
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/transaksipendingdb?namaVenueReq=${namaVenueProps}`, fetcher, { refreshInterval: 1000 })
+    const { data: data, error } = useSWR(`/api/transaksipendinguserdb?emailReq=${session.user.email}`, fetcher, { refreshInterval: 1000 })
 
     if (!data) {
-        return <div>Loading...</div>
+        return <div>Anda tidak memiliki akses untuk halaman ini</div>
     } else if (error) {
         return <div>Something went wrong</div>
     }
 
 
     let transaksi = data['message']
-    let transaksiPending = transaksi.filter(data => data.opsiBayar != "Full Bayar" && data.status == 'pending')
-    let transaksiDPBelumLunas = transaksi.filter(data => data.opsiBayar == "DP" && data.status == 'diterima')
-    let transaksiBayarDiTempat = transaksi.filter(data => data.opsiBayar == "Bayar di Tempat" && data.status == 'diterima')
+
 
     return (
         <>
