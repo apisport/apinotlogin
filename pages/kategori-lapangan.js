@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-export default function Lapangan() {
+export default function KategoriLapangan() {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(6)
     const [filterSearch, setFilterSearch] = useState('')

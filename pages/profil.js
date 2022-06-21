@@ -8,8 +8,11 @@ export default function Profil() {
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-
-  const { data: data, error } = useSWR(`/api/profildb?emailReq=${session.user.email}`, fetcher)
+  let url = ''
+  if (session) {
+    url = `/api/profildb?emailReq=${session.user.email}`
+  }
+  const { data: data, error } = useSWR(url, fetcher)
 
   if (!data) {
     return <div>Anda tidak memiliki akses untuk halaman ini</div>

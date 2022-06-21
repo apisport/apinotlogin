@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import Link from 'next/link'
 
 
-export default function Lapangan() {
+export default function CariLapangan() {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(6)
     const [filterSearch, setFilterSearch] = useState('')

@@ -1,7 +1,7 @@
 import CardLapangan from "../../components/mitra/home/CardLapangan";
 import useSWR from 'swr'
 
-export default function Home({namaVenueProps}) {
+export default function HomeMitra({namaVenueProps}) {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data: data, error } = useSWR(`/api/detailvenuedb?namaVenueReq=${namaVenueProps}`, fetcher)
 

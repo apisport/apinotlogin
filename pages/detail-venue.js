@@ -2,12 +2,16 @@ import CardLapangan from "../components/user/detail-venue/CardLapangan";
 import useSWR from "swr";
 import { useRouter } from 'next/router';
 
-export default function Home() {
+export default function Detailvenue() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   const router = useRouter()
   const {namaVenue} = router.query
   const { data: data, error } = useSWR(`/api/detailvenuedb?namaVenueReq=${namaVenue}`, fetcher)
-  let namaHasil = namaVenue.split(" ").join("");
+  let namaHasil = ''
+  if (namaVenue) {
+    namaHasil = namaVenue.split(" ").join("");
+  }
+  
 
   if (!data) {
     return <div className="spinner"></div>

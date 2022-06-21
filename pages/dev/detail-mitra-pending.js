@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 
-export default function Register() {
+export default function DetailMitraPending() {
     let router = useRouter()
     const { namaVenue,
         namaPemilikVenue,
@@ -24,9 +24,15 @@ export default function Register() {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
 
-    let opsiBayar = JSON.parse(opsiBayarStringify)
-    let rekening = JSON.parse(rekeningStringify)
-    let fotoVenue = JSON.parse(fotoVenueStringify)
+    let opsiBayar = []
+    let rekening = []
+    let fotoVenue = []
+
+    if (opsiBayarStringify && rekeningStringify && fotoVenueStringify) {
+        opsiBayar = JSON.parse(opsiBayarStringify)
+        rekening = JSON.parse(rekeningStringify)
+        fotoVenue = JSON.parse(fotoVenueStringify)
+    }
     let email = emailReq
 
     const deleteMitraPending = async () => {

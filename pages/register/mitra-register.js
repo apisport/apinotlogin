@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import Link from 'next/link';
 
 
-export default function Register() {
+export default function MitraRegister() {
   const [namaVenue, setNamaVenue] = useState('');
   const [namaPemilikVenue, setNamaPemilikVenue] = useState('');
   const [alamat, setAlamat] = useState('');

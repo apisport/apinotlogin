@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { Alert } from 'react-bootstrap';
 
 
-export default function Home() {
+export default function DetailLapangan() {
 
     //Router
     const router = useRouter()

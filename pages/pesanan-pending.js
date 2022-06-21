@@ -6,7 +6,11 @@ import CardListPending from '../components/user/pesanan-pending/CardListPending'
 export default function PesananPending() {
     const {data: session} = useSession()
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/transaksipendinguserdb?emailReq=${session.user.email}`, fetcher, { refreshInterval: 1000 })
+    let url = ''
+    if (session) {
+        url = `/api/transaksipendinguserdb?emailReq=${session.user.email}`
+    }
+    const { data: data, error } = useSWR(url, fetcher, { refreshInterval: 1000 })
 
     if (!data) {
         return <div>Anda tidak memiliki akses untuk halaman ini</div>

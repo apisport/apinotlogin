@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Profil() {
   return (
     <div className="limiter">
       <div className="container-login100" style={{ backgroundImage: 'url("./bg-01.jpg")' }}>

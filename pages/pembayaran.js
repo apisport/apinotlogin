@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react'
 import useSWR from "swr";
 
-export default function Home() {
+export default function Pembayaran() {
 
   var currentdate = new Date();
   var dateTime = currentdate.getDate() + "/"

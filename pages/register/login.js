@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 
 
-export default function Register() {
+export default function Login() {
     const { data: session, status } = useSession()
 
     let router = useRouter()

@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Tambahtransaksi() {
     return (
         <div className="container-xxl p-3">
             <div className="d-flex flex-row justify-content-center">

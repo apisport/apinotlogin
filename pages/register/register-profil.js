@@ -4,7 +4,7 @@ import { useSession, signIn } from 'next-auth/react'
 import useSWR from 'swr';
 import Link from 'next/link';
 
-export default function Register() {
+export default function Userregister() {
     const [nama, setNama] = useState('');
     const [jenisKelamin, setJenisKelamin] = useState('');
     const [noWa, setNoWa] = useState('');

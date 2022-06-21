@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export default function Addlapangan() {
+export default function Updetlapangan() {
     let router = useRouter()
     const { namaVenue,
         namaLapangan,

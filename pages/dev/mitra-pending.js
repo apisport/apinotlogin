@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState } from "react"
 import Pagination from "../../components/Pagination"
 
-export default function MitraDev() {
+export default function MitraPending() {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data: data, error } = useSWR('/api/mitrapendingdb', fetcher)
     const [currentPage, setCurrentPage] = useState(1)

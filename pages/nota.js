@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSession, signIn } from 'next-auth/react'
 import useSWR from "swr";
 
-export default function Home() {
+export default function Nota() {
     //Router
     let router = useRouter()
     const { idTransaksi, kodeNota } = router.query

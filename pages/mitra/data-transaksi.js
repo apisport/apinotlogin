@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import moment from 'moment'
 
-export default function tableBuku({ namaVenueProps }) {
+export default function Datatransaksi({ namaVenueProps }) {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPage] = useState(10)
     const [filterSearch, setFilterSearch] = useState('')

@@ -1,6 +1,6 @@
 import Carousel from '../../components/user/detail-lapangan/Carousel'
 import CardJadwal from '../../components/user/detail-lapangan/CardJadwal'
-export default function Home() {
+export default function DetailLapangan() {
     return (
         <div className="container">
             <h1 className='mb-3'>Lapangan 1</h1>

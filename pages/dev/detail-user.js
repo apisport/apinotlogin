@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link'
 import Router from 'next/router';
 
-export default function Register() {
+export default function DetailUser() {
     let router = useRouter()
     const {
         nama,

@@ -1,4 +1,4 @@
-export default function Home() {
+export default function EditProfil() {
   function myFunction() {
     var x = document.getElementById("passwordInput");
     if (x.type === "password") {
