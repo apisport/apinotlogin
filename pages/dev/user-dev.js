@@ -78,6 +78,8 @@ export default function UserDev() {
                                 <th>Jenis Kelamin</th>
                                 <th>No. WA</th>
                                 <th>E-mail</th>
+                                <th>Username</th>
+                                <th>Password</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -93,11 +95,17 @@ export default function UserDev() {
                                             <td>{data.jenisKelamin}</td>
                                             <td>{data.noWa}</td>
                                             <td>{data.email}</td>
+                                            <td>{data.username}</td>
+                                            <td>{data.password}</td>
                                             <td><div className="btn-group-vertical btn-group-sm">
                                                 {/* <Link href={`/dev/detail-mitra-pending?namaVenue=${data.namaVenue}&namaPemilikVenue=${data.namaPemilikVenue}&alamat=${data.alamat}&noWa=${data.noWa}&instagram=${data.instagram}&kategori=${data.kategori}&hariOperasional=${data.hariOperasional}&jamOperasional=${data.jamOperasional}&fasilitas=${data.fasilitas}&opsiBayarStringify=${JSON.stringify(data.opsiBayar)}&rekeningStringify=${JSON.stringify(data.rekening)}&namaAdmin=${data.namaAdmin}&noWaAdmin=${data.noWaAdmin}&username=${data.username}&password=${data.password}&fotoVenue=${data.fotoVenue}objectId=${data._id}`}> */}
                                                 <Link href={{
                                                     pathname: '/dev/detail-user',
                                                     query: {
+                                                        nama: data.nama,
+                                                        jenisKelamin: data.jenisKelamin,
+                                                        noWa: data.noWa,
+                                                        emailReq: data.email,
                                                         objectId: data._id
                                                     }
 
