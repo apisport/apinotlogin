@@ -8,7 +8,7 @@ export default function Home({namaVenueProps}) {
 
 
     if (!data) {
-        return <div>Loading...</div>
+        return <div className="spinner"></div>
     } else if (error) {
         return <div>Something went wrong</div>
     }

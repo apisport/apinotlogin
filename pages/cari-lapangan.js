@@ -18,7 +18,7 @@ export default function Lapangan() {
     const { data: data, error } = useSWR(`/api/carilapangandb?namaVenueReq=${search}`, fetcher)
 
     if (!data) {
-        return <div>Loading...</div>
+        return <div className="spinner"></div>
     } else if (error) {
         return <div>Something went wrong</div>
     }

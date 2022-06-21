@@ -9,7 +9,7 @@ export default function DetailNotifikasi() {
     const { data: data, error } = useSWR(`/api/detailnotifikasidb?idTransaksiReq=${idTransaksi}`, fetcher)
 
     if (!data) {
-        return <div>Loading...</div>
+        return <div className="spinner"></div>
     } else if (error) {
         return <div>Something went wrong</div>
     }

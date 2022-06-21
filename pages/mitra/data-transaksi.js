@@ -16,7 +16,7 @@ export default function tableBuku({ namaVenueProps }) {
     const { data: data, error } = useSWR(`/api/transaksidb?namaVenueReq=${namaVenueProps}`, fetcher)
 
     if (!data) {
-        return <div>Loading...</div>
+        return <div className="spinner"></div>
     } else if (error) {
         return <div>Something went wrong</div>
     }

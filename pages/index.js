@@ -15,7 +15,7 @@ export default function Home() {
   const { data: data, error } = useSWR('/api/homefavoritdb', fetcher, {refreshInterval: 1000})
 
   if (!data) {
-    return <div>Loading...</div>
+    return<div className="spinner"></div>
   } else if (error) {
     return <div>Something went wrong</div>
   }
