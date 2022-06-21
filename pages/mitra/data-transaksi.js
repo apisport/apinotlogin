@@ -76,7 +76,7 @@ export default function tableBuku({ namaVenueProps }) {
                     </thead>
                     <tbody>
                         {transaksi.length === 0 ? (
-                            <h2>Tidak ada data</h2>
+                            <h3>Tidak ada data</h3>
                         ) : (
                             <>
                                 {currentPosts.map((data, index) => (

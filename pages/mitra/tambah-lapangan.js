@@ -302,7 +302,7 @@ export default function Addlapangan() {
                     </div>
                     <div className="mt-2 col-12 col-md-12"><label className="labels">Foto Lapangan</label>
                         {gambar.length === 0 ? (
-                            <h2>Daftar Foto</h2>
+                            <h3>Daftar Foto</h3>
                         ) : (
                             <>
 
@@ -403,7 +403,7 @@ export default function Addlapangan() {
                         <div className='row' id='divJadwal'>
 
                             {jadwalTampilan.length === 0 ? (
-                                <h2>Isi daftar tim</h2>
+                                <h3>Isi daftar tim</h3>
                             ) : (
                                 <>
 

@@ -56,7 +56,7 @@ export default function Lapangan() {
                     </div>
                 </div>
                 <div className="container my-4 text-black-50" >
-                    <h2 style={{ color: 'black' }}>Rekomendasi Lapangan</h2>
+                    <h3 style={{ color: 'black' }}>Rekomendasi Lapangan</h3>
                     <hr></hr>
                     <div className="row row-cols-1 row-cols-md-4 g-4 mt-3">
                         {lapangan.favorit.length === 0 ? (
@@ -73,7 +73,7 @@ export default function Lapangan() {
                 </div>
 
                 <div className='container my-4 text-black-50'>
-                    <h2 style={{ color: 'black' }}>Daftar Lapangan</h2>
+                    <h3 style={{ color: 'black' }}>Daftar Lapangan</h3>
                     <select className='form-control form-select mt-4'>
                         <option>Futsal</option>
                         <option>Bulutangkis</option>

@@ -182,7 +182,7 @@ export default function Lapangan() {
             </div>
             <div>
                 <div className="container my-4 text-black-50" >
-                    <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${kategori}`}</h2>
+                    <h3 style={{ color: 'black' }} className='fw-bold fst-italic'>{`Daftar Lapangan ${kategori}`}</h3>
                     <hr></hr>
                     <div className="row justify-content-center row-cols-1 row-cols-md-3">
                         {currentPosts.length === 0 ? (

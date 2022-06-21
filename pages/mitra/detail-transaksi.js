@@ -46,7 +46,7 @@ export default function DetailNotifikasi() {
                                         <div className='col-12 col-sm-4 mb-2'>
                                             <div className='card'>
                                                 <div className='card-body'>
-                                                    <h2>{data}</h2>
+                                                    <h3>{data}</h3>
                                                 </div>
                                             </div>
                                         </div>

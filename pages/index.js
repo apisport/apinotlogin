@@ -137,7 +137,7 @@ export default function Home() {
 
       <div>
         <div className="container my-4 text-black-50" >
-          <h2 style={{ color: 'black' }} className='fw-bold fst-italic'>REKOMENDASI LAPANGAN</h2>
+          <h3 style={{ color: 'black' }} className='fw-bold fst-italic'>REKOMENDASI LAPANGAN</h3>
           <hr></hr>
           <div className="row row-cols-1 row-cols-md-3 g-4 mt-3">
             {rekomendasi.length === 0 ? (
@@ -154,11 +154,11 @@ export default function Home() {
           </div>
         </div>
         <div className='container mt-4 my-4 text-black-50'>
-          <h2 style={{ color: '#EE8F00' }} className='mb-5 header-custom'>TESTIMONI</h2>
+          <h3 style={{ color: '#EE8F00' }} className='mb-5 header-custom'>TESTIMONI</h3>
           <CardTestimonial />
         </div>
         <div className='container mt-4 my-4 text-black-50'>
-          <h2 style={{ color: '#EE8F00' }} className='mb-5 header-custom'>ALUR BOOKING</h2>
+          <h3 style={{ color: '#EE8F00' }} className='mb-5 header-custom'>ALUR BOOKING</h3>
           <img src='/alur.png' className='d-block img-fluid' />
         </div>
 

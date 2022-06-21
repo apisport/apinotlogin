@@ -194,7 +194,7 @@ export default function Register() {
                 </div>
                 <div>
                   {tim.length === 0 ? (
-                    <h2>No added posts</h2>
+                    <h3>No added posts</h3>
                   ) : (
                     <>
                       {tim.map((tim, i) => (

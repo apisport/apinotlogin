@@ -376,7 +376,7 @@ export default function Home() {
                                 </>
                             }
                             {/* {gabunganJadwal.length === 0 ? (
-                                <h2>Tidak ada data Jadwal</h2>
+                                <h3>Tidak ada data Jadwal</h3>
                             ) : ( 
                                     <>
                                         
@@ -398,12 +398,12 @@ export default function Home() {
 
 
                     <div className='row'>
-                        <h2><b>Jadwal yang akan dipesan:</b></h2>
+                        <h3><b>Jadwal yang akan dipesan:</b></h3>
                         <h3>Tgl Main: {tglMain}</h3>
                         <h3>Total Harga: {`Rp ${totalHarga.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}`}</h3>
                         <hr></hr>
                         {jadwalPesan.length === 0 ? (
-                            <h2>Tidak ada data Jadwal yang dipesan</h2>
+                            <h3>Tidak ada data Jadwal yang dipesan</h3>
                         ) : (
                             <>
 

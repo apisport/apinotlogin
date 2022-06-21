@@ -3,7 +3,7 @@ export default function tentangKami() {
         <div id="about" className="mx-5 my-5">
             <div className="row">
                 <div className="col-8 col-sm-8">
-                    <h2><b>Api Sports Team</b></h2><hr />
+                    <h3><b>Api Sports Team</b></h3><hr />
                     <h4>Solusi perolahragaan Anda</h4><br />
                     <p>Api Sports dibuat untuk mempermudah pembookingan Anda</p>
                     <h5><b><icon className='fa fa-instagram' style={{ color: "orange" }} /></b> @api.sport</h5>
