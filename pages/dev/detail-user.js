@@ -83,7 +83,7 @@ export default function Register() {
             <div className="container-login100">
                 <form className="login100-form validate-form" onSubmit={handlePost}>
                     <span className="login100-form-title">
-                        user
+                        Detail User
                     </span>
                     <div className="p-3 py-5">
                         <div className="row">
