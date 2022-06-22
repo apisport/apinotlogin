@@ -87,18 +87,24 @@ export default function Detailvenue() {
 
       </div>
       <div className='row'>
-        <a data-bs-toggle="collapse" href="#fasilitasCollapse" style={{ color: "black" }}><h5 className='text-start'><icon className='fa fa-caret-down'></icon> Fasilitas</h5></a>
+        <a  style={{ color: "black" }}>
+          <h5 className='d-flex justify-content-between'>Fasilitas
+          </h5>
+        </a>
         <div>
-          <div className="row collapse multi-collapse text-start" id="fasilitasCollapse">
+          <div className='d-flex justify-content-between'  >
             <span>{venue.infoVenue[0].fasilitas}</span>
           </div>
         </div>
       </div>
-      <div className='row mt-3'>
-        <a data-bs-toggle="collapse" href="#sosmedCollapse" style={{ color: "black" }}><h5 className='text-start'><icon className='fa fa-caret-down'></icon> Sosial Media</h5></a>
+      <div className='row mt-3' style={{ color: "black" }}>
+       
+          <h5 className='d-flex justify-content-between'>Sosial Media</h5>
         <div>
-          <div className="row collapse multi-collapse text-start" id="sosmedCollapse">
-            <span className='mb-2'><b><icon className='fa fa-instagram' /></b> @{venue.infoVenue[0].instagram}</span>
+          <div className="d-flex justify-content-between" >
+            <span className='mb-2'><b><icon className='fa fa-instagram' /></b> {venue.infoVenue[0].instagram}</span>
+          </div>
+          <div className="d-flex justify-content-between" >
             <span className='mb-2'><b><icon className='fa fa-whatsapp' /></b> {venue.infoVenue[0].noWa}</span>
           </div>
         </div>
