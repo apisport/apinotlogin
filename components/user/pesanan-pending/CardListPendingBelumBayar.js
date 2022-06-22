@@ -66,7 +66,7 @@ export default function CardListPendingBelumBayar({ props }) {
                                         </div>
                                     )}
                                     <hr></hr>
-                                    <h5><b>Pesanan:</b> {data.diterimaTgl} | {moment(`${data.diterimaJam}`, "HH:mm:ss")}</h5>
+                                    <h5><b>Pesanan:</b> {data.diterimaTgl} | {data.diterimaJam}</h5>
                                     <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
                                     <hr></hr>
                                     <h5 ><b>Status: Belum Bayar</b></h5>
