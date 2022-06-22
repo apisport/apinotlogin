@@ -51,6 +51,7 @@ export default function PesananPending() {
                 <CardListPending props={transaksi.pending} />
                 <hr></hr>
                 <h4><b>Transaksi Pending Belum Bayar</b></h4>
+                <h5 style={{color:'red'}}><b>Mohon Lakukan Pembayaran atau transaksi akan otomatis di batalkan</b></h5>
                 <CardListPendingBelumBayar props={transaksi.belumBayar} />
                 <hr></hr>
                 <h4><b>Transaksi Ditolak</b></h4>

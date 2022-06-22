@@ -28,10 +28,12 @@ import moment from 'moment'
 
 
 function MyApp({ Component, pageProps }) {
-  var a = moment("10:02:00", "HH:mm:ss");
+  var a = moment("10:00:00", "HH:mm:ss");
   var b = moment("15:30:00", "HH:mm:ss");
   console.log('difference:')
   console.log(b.diff(a, 'minutes'))
+  console.log('adding:')
+  console.log(a.add(1, 'hours').format("HH:mm:ss"))
   const router = useRouter()
   if (router.pathname.startsWith('/mitra/')) {
     return (

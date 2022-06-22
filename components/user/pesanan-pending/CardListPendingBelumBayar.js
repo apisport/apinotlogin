@@ -2,6 +2,7 @@ import { Router } from "next/router";
 import Link from "next/link";
 import { useState } from "react";
 import Pagination from "../../Pagination";
+import moment from 'moment'
 
 export default function CardListPendingBelumBayar({ props }) {
     const [currentPage, setCurrentPage] = useState(1)
@@ -69,7 +70,9 @@ export default function CardListPendingBelumBayar({ props }) {
                                     <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
                                     <hr></hr>
                                     <h5 ><b>Status: Belum Bayar</b></h5>
-                                    <span style={{color:'red'}}>Upload bukti bayar hingga atau transaksi akan dihapus</span>
+                                    <span style={{ color: 'red' }}><b>Upload bukti bayar hingga
+                                        {moment(`${data.diterimaJam}`, "HH:mm:ss").add(1, 'hours').format("HH:mm:ss")}
+                                        atau transaksi akan dihapus</b></span>
                                     <hr></hr>
                                     <Link href={{
                                         pathname: '/pembayaran-pending',
