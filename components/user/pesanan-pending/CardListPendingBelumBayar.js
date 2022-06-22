@@ -75,9 +75,13 @@ export default function CardListPendingBelumBayar({ props }) {
                                         &nbsp; atau transaksi akan dihapus</b></span>
                                     <hr></hr>
                                     <Link href={{
-                                        pathname: '/pembayaran-pending',
+                                        pathname: '/pembayaran',
                                         query: {
-                                            idTransaksi: data._id,
+                                            jadwalPesanReq: data.jadwalMain,
+                                            totalHargaReq: data.harga,
+                                            namaVenueReq: data.namaVenue,
+                                            namaLapanganReq: data.lapangan,
+                                            tglMainReq: data.tglMain
                                         }
                                     }} >
                                         <a className="btn btn-success text-white p-3 mb-2">Lakukan Pembayaran</a>
