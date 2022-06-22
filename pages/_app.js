@@ -24,10 +24,14 @@ import LayoutMitra from '../layout/admin/LayoutAdmin'
 import LayoutDev from '../layout/dev/LayoutDev'
 import LayoutRegister from '../layout/register/LayoutRegister'
 import { SessionProvider } from "next-auth/react"
-
+import moment from 'moment'
 
 
 function MyApp({ Component, pageProps }) {
+  var a = moment("10:02:00", "HH:mm:ss");
+  var b = moment("15:30:00", "HH:mm:ss");
+  console.log('difference:')
+  console.log(b.diff(a, 'minutes'))
   const router = useRouter()
   if (router.pathname.startsWith('/mitra/')) {
     return (

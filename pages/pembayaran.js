@@ -138,7 +138,11 @@ export default function Pembayaran() {
 
     // get the data
     let jamTerisi = []
-    let response1 = await fetch(`/api/pembayarandb?emailReq=${`api.sport.team@gmail.com`}&namaVenueReq=${namaVenueReq}&tglMainReq=${tglMainReq}&jadwalPesanReq=${jadwalPesanReq}&lapanganReq=${namaLapanganReq}`, {
+    let url = ''
+    if (session) {
+      url = `/api/pembayarandb?emailReq=${session.user.email}&namaVenueReq=${namaVenueReq}&tglMainReq=${tglMainReq}&jadwalPesanReq=${jadwalPesanReq}&lapanganReq=${namaLapanganReq}`
+    }
+    let response1 = await fetch(url, {
       method: 'GET'
     });
     let data1 = await response1.json();
@@ -189,7 +193,7 @@ export default function Pembayaran() {
       let data = await response.json();
       if (data.success) {
         // reset the fields
-        alert('Transaksi pending, Mohn tunggu persetujuan Mitra!')
+        alert('Transaksi pending, Mohon tunggu persetujuan Mitra!')
         router.back()
         return setMessage(data.message);
       }
