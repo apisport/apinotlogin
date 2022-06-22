@@ -84,9 +84,9 @@ export default function CardLapangan({props}) {
                                 ) : (
                                     <>
                                         {gabunganJadwal.map((data, index) => (
-                                            <div className='col-6 col-sm-3 mb-2'>
+                                             <div className='col-3 col-sm-3 mb-2'>
                                                 <div className='card'>
-                                                    <div className='card-body'>
+                                                    <div style={{fontSize:"8px",color:"black"}}>
                                                         <span>{data}</span><br></br>
                                                         <span>Rp {gabunganHarga[index].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</span>
                                                     </div>
