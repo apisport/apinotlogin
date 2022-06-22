@@ -25,16 +25,18 @@ async function getTransaksi(req, res) {
             .sort({ idTransaksi: -1 })
             .toArray();
         let belumBayar = await db
-            .collection('notifikasi')
+            .collection('transaksi')
             .find({
                 email: emailReq,
-                status: 'pending'
+                status: 'pending',
+                buktiBayar: null
             }, { projection: { 'buktiBayar': 0 } })
             .sort({ idTransaksi: -1 })
             .toArray();
         let hasil = {}
         hasil['pending'] = transaksi
         hasil['notifikasi'] = notifikasi
+        hasil['belumBayar'] = belumBayar
         // return the posts
         return res.json({
             message: JSON.parse(JSON.stringify(hasil)),

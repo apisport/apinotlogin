@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import { useSession } from 'next-auth/react'
 import moment from 'moment'
 import CardListPending from '../components/user/pesanan-pending/CardListPending'
+import CardListPendingBelumBayar from '../components/user/pesanan-pending/CardListPendingBelumBayar'
 
 export default function PesananPending() {
     const {data: session} = useSession()
@@ -48,6 +49,9 @@ export default function PesananPending() {
                 <h4><b>Transaksi Pending</b></h4>
                 <hr></hr>
                 <CardListPending props={transaksi.pending} />
+                <hr></hr>
+                <h4><b>Transaksi Pending Belum Bayar</b></h4>
+                <CardListPendingBelumBayar props={transaksi.belumBayar} />
                 <hr></hr>
                 <h4><b>Transaksi Ditolak</b></h4>
                 {transaksi.notifikasi.length != 0 &&
