@@ -11,7 +11,8 @@ async function getTransaksi(req, res) {
             .collection('transaksi')
             .find({
                 email: emailReq,
-                status: 'pending'
+                status: 'pending',
+                buktiBayar: {$ne: null}
             }, { projection: { 'buktiBayar': 0 } })
             .sort({ idTransaksi: -1 })
             .toArray();
@@ -21,6 +22,14 @@ async function getTransaksi(req, res) {
                 email: emailReq,
                 status: 'ditolak'
             })
+            .sort({ idTransaksi: -1 })
+            .toArray();
+        let belumBayar = await db
+            .collection('notifikasi')
+            .find({
+                email: emailReq,
+                status: 'pending'
+            }, { projection: { 'buktiBayar': 0 } })
             .sort({ idTransaksi: -1 })
             .toArray();
         let hasil = {}
