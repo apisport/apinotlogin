@@ -109,9 +109,9 @@ export default function Detailvenue() {
           </div>
         </div>
       </div>
-      <div className='row mt-3'>
-        <a data-bs-toggle="collapse" href="#lapanganCollapse" style={{ color: "black" }}><h5 className='text-start'><icon className='fa fa-caret-down'></icon> Daftar Lapangan</h5></a>
-        <div className="row collapse multi-collapse text-start" id="lapanganCollapse">
+      <div className='row mt-3' style={{ color: "black" }}>
+          <h5 className='d-flex justify-content-between'>Daftar Lapangan</h5>
+        <div className='d-flex justify-content-between'>
           {venue.infoLapangan.length === 0 ? (
             <h3>Tidak ada data Lapangan</h3>
           ) : (
