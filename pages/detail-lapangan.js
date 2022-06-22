@@ -340,10 +340,12 @@ export default function DetailLapangan() {
                     {/* END SLIDER */}
                 </div>
             </div>
-            <div className='row mb-4'>
-                <a data-bs-toggle="collapse" href="#deskripsiCollapse" style={{ color: "black" }}><h5 className='text-start'><icon className='fa fa-caret-down'></icon> Deskripsi Lapangan</h5></a>
+             <div className='row mb-4' style={{ color: "black" }}>
+               
+                    <h5 className='text-start'> Deskripsi Lapangan</h5>
+               
                 <div>
-                    <div className="row collapse multi-collapse text-start" id="deskripsiCollapse">
+                    <div className="d-flex justify-content-between">
                         <span>{infoLapangan.deskripsi}</span>
                     </div>
                 </div>
