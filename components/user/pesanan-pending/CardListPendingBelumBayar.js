@@ -66,13 +66,13 @@ export default function CardListPendingBelumBayar({ props }) {
                                         </div>
                                     )}
                                     <hr></hr>
-                                    <h5><b>Pesanan:</b> {data.diterimaTgl} | {data.diterimaJam}</h5>
+                                    <h5><b>Pesanan:</b> {data.diterimaTgl} | {moment(`${data.diterimaJam}`, "HH:mm:ss")}</h5>
                                     <h5><b>Tanggal Main:</b> {data.tglMain}</h5>
                                     <hr></hr>
                                     <h5 ><b>Status: Belum Bayar</b></h5>
-                                    <span style={{ color: 'red' }}><b>Upload bukti bayar hingga
+                                    <span style={{ color: 'red' }}><b>Upload bukti bayar hingga &nbsp;
                                         {moment(`${data.diterimaJam}`, "HH:mm:ss").add(1, 'hours').format("HH:mm:ss")}
-                                        atau transaksi akan dihapus</b></span>
+                                        &nbsp; atau transaksi akan dihapus</b></span>
                                     <hr></hr>
                                     <Link href={{
                                         pathname: '/pembayaran-pending',
