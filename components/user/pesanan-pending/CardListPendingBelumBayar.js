@@ -77,7 +77,7 @@ export default function CardListPendingBelumBayar({ props }) {
                                     <Link href={{
                                         pathname: '/pembayaran',
                                         query: {
-                                            jadwalPesanReq: data.jadwalMain,
+                                            jadwalPesanReq: JSON.stringify(data.jadwalMain),
                                             totalHargaReq: data.harga,
                                             namaVenueReq: data.namaVenue,
                                             namaLapanganReq: data.lapangan,
