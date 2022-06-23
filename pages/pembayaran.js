@@ -68,7 +68,8 @@ export default function Pembayaran() {
     namaLapanganReq,
     tglMainReq,
     diterimaTglReq,
-    diterimaJamReq
+    diterimaJamReq,
+    idTransaksiReq
   } = router.query
 
 
@@ -168,40 +169,29 @@ export default function Pembayaran() {
     console.log(jamFilter)
 
     if (jamFilter.length == 0) {
-      let transaksi = {
-        nama,
-        email,
-        lapangan,
-        noWa,
-        tim,
-        noRekening,
-        opsiBayar,
-        buktiBayar,
-        namaVenue,
-        tglMain,
-        jadwalMain,
-        harga,
-        hargaDP,
-        diterima,
-        status
-      };
-      // save the post
-      let response = await fetch('/api/transaksidb', {
-        method: 'POST',
-        body: JSON.stringify(transaksi),
-      });
-      // get the data
-      let data = await response.json();
-      if (data.success) {
-        // reset the fields
-        alert('Transaksi pending, Mohon tunggu persetujuan Mitra!')
-        router.back()
-        return setMessage(data.message);
-      }
-      else {
-        // set the error
-        console.log(data.message);
-        return setError1(data.message);
+      e.preventDefault();
+      // reset error and message
+      setMessage('');
+      // fields check
+      try {
+        // Update post
+        await fetch('/api/transaksidb', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            
+            objectId: idTransaksiReq
+          }),
+        });
+        // reload the page
+        alert('Data sukses diupdate')
+        return router.push('/mitra/home');
+      } catch (error) {
+        // Stop publishing state
+        console.log('Not Working')
+        return console.log('Not Working')
       }
     } else {
       alert('Mohon Maaf, timeslot telah dipesan, mohon untuk memilih jadwal kembali')

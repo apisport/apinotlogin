@@ -235,6 +235,8 @@ export default function DetailLapangan() {
                 if (data.success) {
                     // reset the fields
                     alert('Jadwal Berhasil dipesan, Mohon untuk menyelesaikan pembayaran di halaman berikutnya!')
+                    console.log('Object ID:')
+                    console.log(data.message)
                     router.push({
                         pathname: '/pembayaran',
                         query: {
@@ -244,7 +246,8 @@ export default function DetailLapangan() {
                             namaLapanganReq: infoLapangan.namaLapangan,
                             tglMainReq: tglMain,
                             diterimaTglReq: diterimaTgl,
-                            diterimaJamReq: diterimaJam
+                            diterimaJamReq: diterimaJam,
+                            idTransaksiReq: data.message
                         }
                     })
                 }

@@ -33,9 +33,10 @@ async function addTransaksi(req, res) {
         let { db } = await connectToDatabase();
         // add the post
         await db.collection('transaksi').insertOne(JSON.parse(req.body));
+        let id = await db.collection('transaksi').find(JSON.parse(req.body)).toArray()
         // return a message
         return res.json({
-            message: 'Data Transaksi Telah di Tambahkan',
+            message: id[0]._id,
             success: true,
         });
     } catch (error) {
