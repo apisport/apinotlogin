@@ -70,7 +70,7 @@ export default function CardLapangan({props}) {
                                     }
 
                                 }}>
-                                    <button className='btn btn-success text-white p-2'>Lihat Selengkapnya</button>
+                                    <button className='btn btn-success text-white p-2'>Pesan Sekarang</button>
                                 </Link>
                                 </div>
 
@@ -78,15 +78,15 @@ export default function CardLapangan({props}) {
                             </div>
                             <div className="col-lg-8 p-2 ">
                             <div className='row' >
-                                <h3>Jadwal Lapangan</h3>
+                                <h3 className='mb-4'>Jadwal Lapangan</h3>
                                 {gabunganJadwal.length === 0 ? (
                                     <h2>Tidak ada data</h2>
                                 ) : (
                                     <>
                                         {gabunganJadwal.map((data, index) => (
-                                             <div className='col-3 col-sm-3 mb-2'>
+                                             <div className='col-6 col-sm-4 mb-3'>
                                                 <div className='card'>
-                                                    <div style={{fontSize:"8px",color:"black"}}>
+                                                    <div style={{color:"black"}}>
                                                         <span>{data}</span><br></br>
                                                         <span>Rp {gabunganHarga[index].toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</span>
                                                     </div>

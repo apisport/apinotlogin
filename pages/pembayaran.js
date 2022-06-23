@@ -73,7 +73,6 @@ export default function Pembayaran() {
   //Suwir
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   let url = ''
-  url = `/api/pembayarandb?emailReq=${`api.sport.team@gmail.com`}&namaVenueReq=${namaVenueReq}`
   if (session) {
     url = `/api/pembayarandb?emailReq=${session.user.email}&namaVenueReq=${namaVenueReq}`
   }
