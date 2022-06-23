@@ -66,7 +66,9 @@ export default function Pembayaran() {
     totalHargaReq,
     namaVenueReq,
     namaLapanganReq,
-    tglMainReq
+    tglMainReq,
+    diterimaTglReq,
+    diterimaJamReq
   } = router.query
 
 
@@ -255,7 +257,7 @@ export default function Pembayaran() {
                   </>
                 ))}
               </div>
-              <h5>Pesanan dibuat pada <b>{dateTime}</b></h5>
+              <h5>Pesanan dibuat pada: <b>{`${diterimaTglReq} | ${diterimaJamReq}`}</b></h5>
             </div>
           </div>
         </div>

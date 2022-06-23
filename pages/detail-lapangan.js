@@ -242,7 +242,9 @@ export default function DetailLapangan() {
                             totalHargaReq: totalHarga,
                             namaVenueReq: lapanganRes.infoVenue[0].namaVenue,
                             namaLapanganReq: infoLapangan.namaLapangan,
-                            tglMainReq: tglMain
+                            tglMainReq: tglMain,
+                            diterimaTglReq: diterimaTgl,
+                            diterimaJamReq: diterimaJam
                         }
                     })
                 }

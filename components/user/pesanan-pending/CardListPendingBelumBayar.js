@@ -81,7 +81,9 @@ export default function CardListPendingBelumBayar({ props }) {
                                             totalHargaReq: data.harga,
                                             namaVenueReq: data.namaVenue,
                                             namaLapanganReq: data.lapangan,
-                                            tglMainReq: data.tglMain
+                                            tglMainReq: data.tglMain,
+                                            diterimaTglReq: data.diterimaTgl,
+                                            diterimaJamReq: data.diterimaJam
                                         }
                                     }} >
                                         <a className="btn btn-success text-white p-3 mb-2">Lakukan Pembayaran</a>
