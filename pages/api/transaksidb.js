@@ -74,78 +74,36 @@ async function deleteTransaksi(req, res) {
 }
 
 async function updateTransaksi(req, res) {
-    const { namaVenue,
-        namaPemilikVenue,
-        alamat,
-        noWa,
-        instagram,
-        kategori,
-        hariOperasional,
-        jamOperasional,
-        fasilitas,
+    const { tim,
+        noRekening,
         opsiBayar,
-        rekening,
-        DP,
-        namaAdmin,
-        noWaAdmin,
-        email,
-        fotoVenue,
+        buktiBayar,
         objectId,
-        namaVenueLama } = req.body
+        hargaDP } = req.body
     var ObjectId = require('mongodb').ObjectId;
     const convertedObjectId = new ObjectId(objectId);
     try {
         // connect to the database
         let { db } = await connectToDatabase();
         // update the published status of the post
-        await db.collection('mitra').updateOne(
+        await db.collection('transaksi').updateOne(
             {
                 '_id': convertedObjectId
             },
             {
                 $set: {
-                    "_id": ObjectId("62b02b4b82fd6264f103e54e"),
-                    "nama": "Anhar",
-                    "email": "api.sport.team@gmail.com",
-                    "lapangan": "Lapangan 2", "noWa": "123",
-                    "tim": "Tim ABC",
-                    "noRekening": "BCA - 18090213",
-                    "opsiBayar": "Full Bayar Transfer",
-                    "buktiBayar": "Screenshot (3).png",
-                    "namaVenue": "Scuttod", "tglMain": "2022-06-20",
-                    "jadwalMain": ["11.00-12.00"],
-                    "harga": "3000",
-                    "hargaDP": "-",
-                    "diterima": "20/6/2022 | 15:9:44",
+                    tim: tim,
+                    noRekening: noRekening,
+                    opsiBayar: opsiBayar,
+                    buktiBayar: buktiBayar,
+                    hargaDP: hargaDP,
                 }
             }
         );
-        await db.collection('favorit').updateOne(
-            {
-                'namaVenue': namaVenueLama
-            },
-            {
-                $set: {
-                    'namaVenue': namaVenue,
-                    'namaPemilikVenue': namaPemilikVenue,
-                    'alamat': alamat,
-                    'noWa': noWa,
-                    'instagram': instagram,
-                    'kategori': kategori,
-                    'hariOperasional': hariOperasional,
-                    'jamOperasional': jamOperasional,
-                    'fasilitas': fasilitas,
-                    'opsiBayar': opsiBayar,
-                    'rekening': rekening,
-                    'namaAdmin': namaAdmin,
-                    'noWaAdmin': noWaAdmin,
-                    'fotoVenue': fotoVenue
-                }
-            }
-        );
+        let transaksi = db.collection('transaksi').find({'_id': convertedObjectId}).toArray()
         // return a message
         return res.json({
-            message: 'Post updated successfully',
+            message: transaksi,
             success: true,
         });
     } catch (error) {

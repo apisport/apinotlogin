@@ -4,7 +4,9 @@ const ObjectId = require('mongodb').ObjectId;
 // mengambil data dari collection Transaksi
 
 async function getProfil(req, res) {
-    const { emailReq, namaVenueReq, tglMainReq, lapanganReq, diterimaTglReq } = req.query
+    const { emailReq, namaVenueReq, tglMainReq, lapanganReq, diterimaTglReq, idTransaksiReq } = req.query
+    var ObjectId = require('mongodb').ObjectId;
+    const convertedObjectId = new ObjectId(idTransaksiReq);
     try {
         // connect to the database
         let { db } = await connectToDatabase();
@@ -18,6 +20,7 @@ async function getProfil(req, res) {
         let transaksi = await db
             .collection('transaksi')
             .find({
+                _id: {$ne: convertedObjectId},
                 namaVenue: namaVenueReq,
                 lapangan: lapanganReq,
                 tglMain: tglMainReq

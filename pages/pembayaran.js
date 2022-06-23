@@ -73,6 +73,9 @@ export default function Pembayaran() {
   } = router.query
 
 
+  // console.log('idTransaksi:')
+  // console.log(idTransaksiReq)
+
   //Suwir
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   let url = ''
@@ -142,7 +145,7 @@ export default function Pembayaran() {
     let jamTerisi = []
     let url = ''
     if (session) {
-      url = `/api/pembayarandb?emailReq=${session.user.email}&namaVenueReq=${namaVenueReq}&tglMainReq=${tglMainReq}&jadwalPesanReq=${jadwalPesanReq}&lapanganReq=${namaLapanganReq}`
+      url = `/api/pembayarandb?emailReq=${session.user.email}&namaVenueReq=${namaVenueReq}&tglMainReq=${tglMainReq}&jadwalPesanReq=${jadwalPesanReq}&lapanganReq=${namaLapanganReq}&idTransaksiReq=${idTransaksiReq}`
     }
     let response1 = await fetch(url, {
       method: 'GET'
@@ -175,19 +178,25 @@ export default function Pembayaran() {
       // fields check
       try {
         // Update post
-        await fetch('/api/transaksidb', {
+        let update = await fetch('/api/transaksidb', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            
+            tim: tim,
+            noRekening: noRekening,
+            opsiBayar: opsiBayar,
+            buktiBayar: buktiBayar,
+            hargaDP: hargaDP,
             objectId: idTransaksiReq
           }),
         });
+        let data1 = await update.json();
         // reload the page
-        alert('Data sukses diupdate')
-        return router.push('/mitra/home');
+        // console.log('Updated')
+        // console.log(data1.message)
+        return alert('Data sukses diupdate')
       } catch (error) {
         // Stop publishing state
         console.log('Not Working')
