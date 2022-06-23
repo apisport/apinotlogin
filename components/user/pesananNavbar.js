@@ -26,11 +26,11 @@ const NavbarPesan = () => {
     return (
         <>
                 <li className="nav-item">
-                    <Link href={'/list-nota'}><a className="nav-link" > Nota <span className='numberCircle'>{transaksi.diterima.length}</span></a></Link>
+<a className="nav-link" onClick={() => { window.location.href = '/list-nota'; }}> Nota <span className='numberCircle'>{transaksi.diterima.length}</span></a>
                 </li>
 
                 <li className="nav-item">
-                    <Link href={'/pesanan-pending'}><a className="nav-link" > Pending <span className='numberCircle'>{transaksi.pending.length + transaksi.notifikasi.length}</span></a></Link>
+                <a className="nav-link" onClick={() => { window.location.href = '/pesanan-pending'; }}> Pending <span className='numberCircle'>{transaksi.pending.length + transaksi.notifikasi.length}</span></a>
                 </li>
         </>
 

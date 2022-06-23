@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }) {
   console.log('adding:')
   console.log(a.add(1, 'hours').format("HH:mm:ss"))
   const router = useRouter()
+  
   if (router.pathname.startsWith('/mitra/')) {
     return (
       <SessionProvider session={pageProps.session}>

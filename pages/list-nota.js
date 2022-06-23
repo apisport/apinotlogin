@@ -18,7 +18,7 @@ export default function ListNota() {
     const { data: data, error } = useSWR(url, fetcher)
 
     if (!data) {
-        return <div>Anda tidak memilik akses untuk halaman ini</div>
+        return <div className='my-5'>Anda tidak memilik akses untuk halaman ini</div>
     } else if (error) {
         return <div>Something went wrong</div>
     }

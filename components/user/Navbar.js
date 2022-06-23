@@ -32,7 +32,6 @@ const Navbar = () => {
         e.preventDefault()
         signIn('GOOGLE_ID', { callbackUrl: '/register/login' })
     }
-
     
 
     return (
@@ -53,16 +52,16 @@ const Navbar = () => {
                                 </a>
                                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                             </div>
-                            <div className="modal-body" style={{ padding: '2rem', paddingTop: 0, paddingBottom: 0 }}>
+                            <div className="modal-body" tabindex="-1" role="dialog" style={{ padding: '2rem', paddingTop: 0, paddingBottom: 0 }}>
                                 <ul className="navbar-nav responsive me-auto mt-2 mt-lg-0">
-                                    <li className="nav-item">
-                                        <Link href="/"><a className="nav-link">Beranda</a></Link>
+                                    <li className="nav-item" >
+                                        <a className="nav-link" onClick={() => { window.location.href = '/'; }}>Beranda</a>
                                     </li>
                                     <li className="nav-item">
-                                        <Link href="/lapangan"><a className="nav-link">Lapangan</a></Link>
+                                        <a className="nav-link" onClick={() => { window.location.href = '/lapangan'; }}>Lapangan</a>
                                     </li>
                                     <li className="nav-item">
-                                        <Link href="/tentang-kami"><a className="nav-link">Tentang Kami</a></Link>
+                                        <a className="nav-link" onClick={() => { window.location.href = '/tentang-kami'; }}>Tentang Kami</a>
                                     </li>
                                     {/* {session &&
                                         <li className="nav-item">
