@@ -196,7 +196,8 @@ export default function Pembayaran() {
         // reload the page
         // console.log('Updated')
         // console.log(data1.message)
-        return alert('Data sukses diupdate')
+        router.push('/')
+        return alert(`Pembayaran sukses, Mohon tunggu persetujuan dari pihak ${namaVenueReq}`)
       } catch (error) {
         // Stop publishing state
         console.log('Not Working')
