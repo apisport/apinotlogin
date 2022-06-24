@@ -25,17 +25,56 @@ import LayoutDev from '../layout/dev/LayoutDev'
 import LayoutRegister from '../layout/register/LayoutRegister'
 import { SessionProvider } from "next-auth/react"
 import moment from 'moment'
-
+import useSWR from 'swr'
 
 function MyApp({ Component, pageProps }) {
+  //Date Declaration
+  var currentdate = new Date();
+  var dateDate = currentdate.getDate() + "/"
+    + (currentdate.getMonth() + 1) + "/"
+    + currentdate.getFullYear()
+  var dateHours = + currentdate.getHours() + ":"
+    + currentdate.getMinutes() + ":"
+    + currentdate.getSeconds();
+  let dateHoursMoment = moment(dateHours, "HH:mm:ss");
+
+  //Suwir
+  const fetcher = (...args) => fetch(...args).then((res) => res.json())
+  let url = ''
+  url = `/api/cekjamdb?tglCekReq=${dateDate}`
+  const { data: data, error } = useSWR(url, fetcher)
+
+  if (!data) {
+    return <div>Access denied</div>
+  } else if (error) {
+    return <div>Something went wrong</div>
+  }
+
+  //Deklarasi Array JSON SWR
+  let transaksiCek = data['message']
+  
+
   var a = moment("10:00:00", "HH:mm:ss");
   var b = moment("15:30:00", "HH:mm:ss");
-  console.log('difference:')
-  console.log(b.diff(a, 'minutes'))
-  console.log('adding:')
-  console.log(a.add(1, 'hours').format("HH:mm:ss"))
-  const router = useRouter()
   
+  
+  const addingHours = () => {
+    for (let i = 0; i < transaksiCek.length; i++){
+      let jam = moment(`${transaksiCek[i].diterimaJam}`, 'HH:mm:ss')
+      let diff = dateHoursMoment.diff(jam, 'minutes')
+      console.log('Menit Selisih')
+      console.log(diff)
+    }
+    // console.log('difference:')
+    // console.log(b.diff(a, 'minutes'))
+    // console.log('adding:')
+    // console.log(a.add(1, 'hours').format("HH:mm:ss"))
+    // console.log('Transaksi Cek:')
+    // console.log(transaksiCek)
+    
+  }
+  setInterval(addingHours, 5000)
+  const router = useRouter()
   if (router.pathname.startsWith('/mitra/')) {
     return (
       <SessionProvider session={pageProps.session}>
