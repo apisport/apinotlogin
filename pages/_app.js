@@ -28,15 +28,10 @@ import moment from 'moment'
 import useSWR from 'swr'
 
 function MyApp({ Component, pageProps }) {
-  //Date Declaration
   var currentdate = new Date();
   var dateDate = currentdate.getDate() + "/"
     + (currentdate.getMonth() + 1) + "/"
     + currentdate.getFullYear()
-  var dateHours = + currentdate.getHours() + ":"
-    + currentdate.getMinutes() + ":"
-    + currentdate.getSeconds();
-  let dateHoursMoment = moment(dateHours, "HH:mm:ss");
 
   //Suwir
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
@@ -58,12 +53,26 @@ function MyApp({ Component, pageProps }) {
   var b = moment("15:30:00", "HH:mm:ss");
   
   
-  const addingHours = () => {
-    for (let i = 0; i < transaksiCek.length; i++){
+  const checkTransaksi = () => {
+    //Date Declaration
+    var currentdate1 = new Date();
+    var dateHours = + currentdate1.getHours() + ":"
+      + currentdate1.getMinutes() + ":"
+      + currentdate1.getSeconds();
+    console.log(dateHours)
+    let dateHoursMoment = moment(dateHours, "HH:mm:ss");
+    console.log(dateHoursMoment.add(1, 'hours').format("HH:mm:ss"))
+    for (let i = 0; i < transaksiCek.length; i++) {
       let jam = moment(`${transaksiCek[i].diterimaJam}`, 'HH:mm:ss')
-      let diff = dateHoursMoment.diff(jam, 'minutes')
-      console.log('Menit Selisih')
-      console.log(diff)
+      let diff = dateHoursMoment.diff(jam, 'seconds')
+      if (diff >= 20) {
+        console.log(`Jam Diff adalah ${diff}`)
+        console.log(`delete : ${true}`)
+      }
+      else {
+        console.log(`Jam Diff adalah ${diff}`)
+        console.log(`delete : ${false}`)
+      }
     }
     // console.log('difference:')
     // console.log(b.diff(a, 'minutes'))
@@ -73,7 +82,7 @@ function MyApp({ Component, pageProps }) {
     // console.log(transaksiCek)
     
   }
-  setInterval(addingHours, 5000)
+  setInterval(checkTransaksi, 5000)
   const router = useRouter()
   if (router.pathname.startsWith('/mitra/')) {
     return (
