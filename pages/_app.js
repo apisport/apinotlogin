@@ -47,30 +47,31 @@ function MyApp({ Component, pageProps }) {
 
   //Deklarasi Array JSON SWR
   let transaksiCek = data['message']
-  
+
 
   var a = moment("10:00:00", "HH:mm:ss");
   var b = moment("15:30:00", "HH:mm:ss");
-  
-  
+
+
   const checkTransaksi = () => {
     //Date Declaration
     var currentdate1 = new Date();
     var dateHours = + currentdate1.getHours() + ":"
       + currentdate1.getMinutes() + ":"
       + currentdate1.getSeconds();
-    console.log(dateHours)
     let dateHoursMoment = moment(dateHours, "HH:mm:ss");
-    console.log(dateHoursMoment.add(1, 'hours').format("HH:mm:ss"))
     for (let i = 0; i < transaksiCek.length; i++) {
       let jam = moment(`${transaksiCek[i].diterimaJam}`, 'HH:mm:ss')
-      let diff = dateHoursMoment.diff(jam, 'seconds')
-      if (diff >= 20) {
+      let diff = dateHoursMoment.diff(jam, 'minutes')
+      if (diff >= 60) {
         console.log(`Jam Diff adalah ${diff}`)
+        console.log(`Object Id: ${transaksiCek[i]._id}`)
         console.log(`delete : ${true}`)
+        deleteTransaksi(transaksiCek[i]._id)
       }
       else {
         console.log(`Jam Diff adalah ${diff}`)
+        console.log(`Object Id: ${transaksiCek[i]._id}`)
         console.log(`delete : ${false}`)
       }
     }
@@ -80,16 +81,38 @@ function MyApp({ Component, pageProps }) {
     // console.log(a.add(1, 'hours').format("HH:mm:ss"))
     // console.log('Transaksi Cek:')
     // console.log(transaksiCek)
-    
+
   }
-  setInterval(checkTransaksi, 5000)
+
+  const deleteTransaksi = async (idParam) => {
+    try {
+      console.log('Try')
+      // Delete post
+      await fetch('/api/transaksidb', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: idParam
+        }),
+      });
+      // reset the deleting state
+      // reload the page
+      alert(`Transaksi dengan id ${idParam} terhapus`)
+    } catch (error) {
+      // stop deleting state
+    }
+  };
+
+  setInterval(checkTransaksi, 300000)
   const router = useRouter()
   if (router.pathname.startsWith('/mitra/')) {
     return (
       <SessionProvider session={pageProps.session}>
-      <LayoutMitra>
-        <Component {...pageProps} />
-      </LayoutMitra>
+        <LayoutMitra>
+          <Component {...pageProps} />
+        </LayoutMitra>
       </SessionProvider >
     )
   }
@@ -113,8 +136,8 @@ function MyApp({ Component, pageProps }) {
   else if (router.pathname.startsWith('/')) {
     return (
       <SessionProvider session={pageProps.session}>
-      <LayoutUser>
-        <Component {...pageProps} />
+        <LayoutUser>
+          <Component {...pageProps} />
         </LayoutUser>
       </SessionProvider>
     )
