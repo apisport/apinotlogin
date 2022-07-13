@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { useSession, signIn } from 'next-auth/react'
+import Link from 'next/link';
 
 export default function Profil() {
   let router = useRouter()
@@ -57,7 +58,22 @@ export default function Profil() {
                 <div className="mt-2 col-md-12"><label className="labels">Username</label><input type="text" className="form-control" value={session.user.name} readOnly /></div>
               </div>
               <div className='row'>
-                <a className='btn btn-fill text-white mt-3' href='/edit-profil'>Edit Profil</a>
+                <Link href={{
+                  pathname: '/edit-profil',
+                  query: {
+                    nama: profil.nama,
+                    noWa: profil.noWa,
+                    timStringify: JSON.stringify(profil.tim),
+                    emailReq: profil.email,
+                    jenisKelamin: profil.jenisKelamin,
+                    username: session.user.name,
+                    imageUser: session.user.image,
+                    objectId: profil._id
+                  }
+
+                }}>
+                  <a className='btn btn-fill text-white mt-3' href='/edit-profil'>Edit Profil</a>
+                </Link>
               </div>
             </div>
           </div>

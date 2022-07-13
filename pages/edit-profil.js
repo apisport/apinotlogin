@@ -1,80 +1,199 @@
+//@ts-check
+import { useSession, signIn } from 'next-auth/react'
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { now } from 'moment';
+
 export default function EditProfil() {
-  function myFunction() {
-    var x = document.getElementById("passwordInput");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
+  //Req.Query
+  let router = useRouter()
+  const {
+    nama,
+    noWa,
+    timStringify,
+    emailReq,
+    objectId,
+    username,
+    imageUser
+  } = router.query
+
+  //State of Art
+  const [_nama, setNama] = useState('');
+  const [_noWa, setNoWa] = useState('');
+  const [_tim, setTim] = useState([]);
+  const [timTemp, setTimTemp] = useState('');
+
+  //Set All
+  useEffect(() => {
+    if (typeof nama == 'string') {
+      setNama(nama)
+
     }
-  }
+    if (typeof noWa == 'string') {
+      setNoWa(noWa)
+    }
+    if (typeof timStringify == 'string') {
+      setTim(Object.assign(_tim, JSON.parse(timStringify)))
+    }
+  }, [nama,
+    noWa,
+    timStringify,
+    emailReq,
+    objectId])
+
+  const onAddItemArray = () => {
+    setTim(_tim => [..._tim, timTemp]);
+    setTimTemp('')
+    console.log(_tim)
+
+  };
+
+  const removeItemArray = (data) => {
+    var index = _tim.indexOf(data)
+    if (index >= 0) {
+      if (_tim.length === 0) {
+        setTim([])
+      } else {
+        setTim(_tim => [..._tim.slice(0, index), ..._tim.slice(index + 1)])
+      }
+    }
+  };
+  //UPDATE
+  const handlePost = async (e) => {
+    e.preventDefault();
+    // fields check
+    try {
+      // Update post
+      await fetch('/api/profildb', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nama: _nama,
+          noWa: _noWa,
+          tim: _tim,
+          objectId: objectId,
+        }),
+      });
+      // reload the page
+      alert('Profil sukses diupdate')
+      router.push('/');
+    } catch (error) {
+      // Stop publishing state
+      console.log('Not Working')
+    }
+  };
+
   return (
     <div className="limiter">
-      <div className="container-login100" style={{ backgroundImage: 'url("./bg-01.jpg")' }}>
-        <div className="wrap-login100 p-l-55 p-r-55 p-t-10 p-b-20">
-          <form className="login100-form validate-form">
-            <div className="p-3 py-5">
-              <div className="d-flex justify-content-center align-items-center mb-3">
-                <h1 className="text-center">Ubah Profil</h1>
-              </div>
+      <div className="container-login100" style={{ backgroundImage: 'url("/bg-01.jpg")' }}>
+        <div className="wrap-login100 p-3">
+          <form className="login100-form validate-form" onSubmit={handlePost} >
+            <div className="text-center">
+              <img className='img-fluid d-blok p-5' src="/y.png" />
+            </div>
+            <span className="login100-form-title p-b-12">
+              EDIT PROFIL
+            </span>
+            <div className="p-3 py-2">
               <div className="row mt-2">
                 <div className="mt-2 col-md-12">
-                  <label className="labels">Nama Lengkap</label>
-                  <input type="text" className="form-control" placeholder="Nama Lengkap" />
+                  <label className="labels">Nama Lengkap</label><i style={{ color: '#ff0000', fontSize: 'larger' }}>*</i>
+                  <input type="text" className="form-control"
+                    required
+                    id='nama'
+                    value={_nama}
+                    onChange={(e) => setNama(e.target.value)}
+                  />
+                </div>
+                <div className="mt-2 col-md-12"><label className="labels">No . WhatsApp</label><i style={{ color: '#ff0000', fontSize: 'larger' }}>*</i>
+                  <input type="text" className="form-control" required
+                    name="noWa"
+                    onChange={(e) => setNoWa(e.target.value)}
+                    value={_noWa}
+                  />
+                </div>
+                {/* <div className="mt-2 col-md-12"><label className="labels">Username</label><i style={{ color: '#ff0000', fontSize: 'larger' }}>*</i>
+                                        <input type="text" className="form-control" required
+                                            value={session.user.name}
+                                        />
+                                    </div> */}
+                <div className="mt-2 col-md-12"><label className="labels">Email</label><i style={{ color: '#ff0000', fontSize: 'larger' }}>*</i>
+                  <input type="text" className="form-control" required
+                    name="email"
+                    id='email'
+                    value={emailReq}
+                    readOnly
+                  />
+                </div>
+                <div className="mt-2 col-md-12"><label className="labels">Username</label><i style={{ color: '#ff0000', fontSize: 'larger' }}>*</i>
+                  <input type="text" className="form-control" required
+                    name="email"
+                    id='email'
+                    value={username}
+                    readOnly
+                  />
                 </div>
                 <div className="mt-2 col-md-12">
                   <label className="labels">Tambah Tim</label>
                 </div>
-                <div className="d-flex flex-row">
-                  <input type="text" className="form-control mt-2 col-10 col-md-8 col-sm-8" placeholder="Tambah Tim" />
-                  <button href='#' className="form-control mt-2 col-2 col-md-4 col-sm-4"><i className="fa fa-plus"></i></button>
-                </div>
-                <div className="mt-2 col-md-12"><label className="labels">Daftar Tim</label>
-                </div>
                 <div className="btn-group col-md-12">
-                  <input type="text" className="form-control mt-2 col-10 col-md-10" placeholder="Barca Fc" readOnly />
-                  <button href='#' className="form-control mt-2 col-2 col-md-2"><i className="fa fa-trash"></i></button>
+                  <input type="text" className="form-control col-10 mt-2 col-md-10"
+                    id="tim"
+                    name="tim"
+                    value={timTemp}
+                    onChange={(e) => setTimTemp(e.target.value)}
+                  />
+                  <button className="form-control col-2 mt-2 col-sm-2" type='button'
+                    onClick={onAddItemArray}><i className="fa fa-plus"></i></button>
                 </div>
-                <div className="mt-2 form-radio col-md-12">
-                  <label htmlFor="gender" className="radio-label">Jenis Kelamin</label>
-                  <div className="form-radio-item">
-                    <input type="radio" name="gender" id="male" defaultChecked />
-                    <label htmlFor="male">Laki-laki</label>
-                    <span className="check ml-5" />
-                    <input type="radio" name="gender" id="female" />
-                    <label htmlFor="female">Perempuan</label>
-                    <span className="check" />
-                  </div>
+                <div className="mt-3 col-md-12"><label className="labels">Daftar Tim</label>
                 </div>
-                <div className="mt-2 col-md-12"><label className="labels">No . WhatsApp</label><input type="text" className="form-control" placeholder="Masukkan No. WhatsApp" /></div>
-                <div className="mt-2 col-md-12"><label className="labels">Email</label><input type="text" className="form-control" placeholder="Masukkan Email" readOnly /></div>
-                <div className="mt-2 col-md-12"><label className="labels">Username</label><input type="text" className="form-control" placeholder="Username" readOnly /></div>
-                <div className="mt-2 col-md-12">
-                  <label className="labels">Password</label>
-                </div>
-                <div className="btn-group col-md-12">
-                  <input type="text" className="form-control col-10 col-md-10" id='passwordInput' placeholder="Password" />
-                  <button onClick={() => { myFunction() }} className="form-control col-2 col-sm-2"><i className="fa fa-eye"></i></button>
-                </div>
-                <div className="mt-2 col-md-12"><label className="labels" htmlFor="formFile">Pilih Foto Profil</label>
-                  <div className="custom-file">
-                    <input type="file" className="custom-file-input" id="validatedCustomFile" required />
-                    <label className="custom-file-label" htmlFor="validatedCustomFile">Choose file...</label>
-                    <div className="invalid-feedback">Example invalid custom file feedback</div>
-                  </div>
+                <div>
+                  {_tim.length === 0 ? (
+                    <h2>Isi Daftar Tim</h2>
+                  ) : (
+                    <>
+
+                      {_tim.map((data, i) => (
+                        <div className="btn-group col-md-12">
+                          <input type="text" id={i} className="form-control col-10 mt-2 col-md-10" value={data} readOnly />
+                          <button className="form-control col-2 mt-2 col-sm-2" type='button'
+                            onClick={() => removeItemArray(data)}
+                          >
+                            <i className="fa fa-trash"></i></button>
+                        </div>
+                      ))}
+                    </>
+                  )}
 
                 </div>
+
+                <div className="mt-2 col-md-12"><label className="labels" htmlFor="formFile">Foto Profil</label>
+                  <img className='img-fluid d-block  rounded-circle' id='image' src={imageUser} />
+
+                </div>
+                <div className="mt-2 d-flex flex-row justify-content-center">
+
+                </div>
+
               </div>
-              {/* <div class="row mt-3">
-							<div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-							<div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-						</div> */}
-              <div className="mt-5 text-center">
-                <button type="button" className="btn btn-outline-secondary p-3" style={{ backgroundColor: '#006E61', color: 'rgb(255, 255, 255)', borderRadius: '5cm' }}>SIMPAN PROFIL</button>
+              <div class="row mt-3 container-login100-form-btn my-3">
+                <button type="submit"
+                  className="btn btn-outline-secondary" style={{ backgroundColor: '#006E61', color: 'rgb(255, 255, 255)', borderRadius: '5cm', width: 500, height: 50 }}>
+                  SIMPAN PROFIL
+                </button>
               </div>
-            </div></form>
+
+
+            </div>
+          </form>
         </div>
       </div>
-    </div>
 
+    </div>
   )
+
 }

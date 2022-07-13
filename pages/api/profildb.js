@@ -1,3 +1,4 @@
+import { now } from 'moment';
 import Router from 'next/router';
 const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
@@ -28,6 +29,44 @@ async function getProfil(req, res) {
     }
 }
 
+async function updateProfil(req, res) {
+    const { nama,
+        noWa,
+        tim,
+        objectId, } = req.body
+    var ObjectId = require('mongodb').ObjectId;
+    const convertedObjectId = new ObjectId(objectId);
+    try {
+        // connect to the database
+        let { db } = await connectToDatabase();
+        // update the published status of the post
+        await db.collection('user').updateOne(
+            {
+                '_id': convertedObjectId
+            },
+            {
+                $set: {
+                    'nama': nama,
+                    'noWa': noWa,
+                    'tim': tim,
+                }
+            }
+        );
+        // return a message
+        return res.json({
+            message: 'Post updated successfully',
+            success: true,
+        });
+    } catch (error) {
+        // return an error
+        return res.json({
+            message: new Error(error).message,
+            success: false,
+        });
+    }
+}
+
+
 // CRUD handler
 export default async function handler(req, res) {
     // switch the methods
@@ -39,7 +78,7 @@ export default async function handler(req, res) {
             return addFavorit(req, res);
         }
         case 'PUT': {
-            return updateFavorit(req, res);
+            return updateProfil(req, res);
         }
         case 'DELETE': {
             return deleteFavorit(req, res);

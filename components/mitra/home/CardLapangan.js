@@ -109,9 +109,20 @@ export default function CardLapangan({ props }) {
                                     </Link>
                                 </div>
                                 <div className='text-center justify-content-center mt-2 mb-2'>
-                                    <a href='/mitra/detail-lapangan'><button className='btn btn-success text-white p-2' style={{ backgroundColor: '#2b7ead', color: 'rgb(255, 255, 255)' }}>
-                                        <icon className='fa fa-eye'></icon >&nbsp;Lihat Selengkapnya
-                                    </button></a>
+                                    <Link href={{
+                                        pathname: '/mitra/detail-lapangan',
+                                        query: {
+                                            idLapangan: props._id,
+                                            namaVenue: props.namaVenue,
+                                            namaLapangan: props.namaLapangan
+                                        }
+
+                                    }}>
+                                        <button className='btn btn-success text-white p-2' style={{ backgroundColor: '#2b7ead', color: 'rgb(255, 255, 255)' }}>
+                                            <icon className='fa fa-eye'></icon >&nbsp;Lihat Selengkapnya
+                                        </button>
+                                    </Link>
+
                                 </div>
                                 <div className='text-center justify-content-center mt-2 mb-2'>
                                     <button className='btn btn-success text-white p-2'
