@@ -17,7 +17,7 @@ async function getLapangan(req, res) {
             .aggregate([
                 {
                     $match: {
-                        "namaVenue" : {$regex: `.*${namaVenueReq}.`, $options:"i"}
+                        "namaVenue": { $regex: `${namaVenueReq}`, $options: "i" }
                     }
                 },
                 {
@@ -29,12 +29,12 @@ async function getLapangan(req, res) {
                     }
                 }, {
                     $project: {
-                        namaVenue : 1,
-                        alamat : 1,
-                        noWa : 1,
-                        instagram : 1,
-                        kategori : 1,
-                        hariOperasional : 1,
+                        namaVenue: 1,
+                        alamat: 1,
+                        noWa: 1,
+                        instagram: 1,
+                        kategori: 1,
+                        hariOperasional: 1,
                         jamOperasional: 1,
                         fotoVenue: 1,
                         lapanganVenue: {
