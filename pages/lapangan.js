@@ -23,7 +23,7 @@ export default function Lapangan() {
         return <div>Something went wrong</div>
     }
 
-    
+
 
     let lapangan = data['message']
     console.log('Agregate:')
@@ -39,7 +39,7 @@ export default function Lapangan() {
     //Tambahan Pagination Current Post Map
 
 
-    
+
     return (
         <>
             <div className='container my-4'>
@@ -58,7 +58,7 @@ export default function Lapangan() {
                 <div className="container my-4 text-black-50" >
                     <h3 style={{ color: 'black' }}>Rekomendasi Lapangan</h3>
                     <hr></hr>
-                    <div className="row mt-3">
+                    <div className="row justify-content-center mt-3">
                         {lapangan.favorit.length === 0 ? (
                             <></>
                         ) : (
@@ -91,9 +91,9 @@ export default function Lapangan() {
                             <></>
                         ) : (
                             <>
-                                
+
                                 {currentPosts.map((data, i) => (
-                                    
+
                                     <CardKategori props={data} />
                                 ))}
                             </>
