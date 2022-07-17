@@ -11,7 +11,7 @@ import { useState } from 'react'
 
 export default function Lapangan() {
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage, setPostsPerPage] = useState(8)
+    const [postsPerPage, setPostsPerPage] = useState(6)
     const [filterSearch, setFilterSearch] = useState('')
     const [searchTerm, setSearchTerm] = useState('')
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
