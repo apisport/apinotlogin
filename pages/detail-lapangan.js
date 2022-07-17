@@ -49,7 +49,7 @@ export default function DetailLapangan() {
 
     //Suwir
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data: data, error } = useSWR(`/api/detaillapangandb?idLapangan=${idLapangan}&namaVenueReq=${namaVenue}&namaLapanganReq=${namaLapangan}&tglMainReq=${tglMain}`, fetcher, {refreshInterval: 1000})
+    const { data: data, error } = useSWR(`/api/detaillapangandb?idLapangan=${idLapangan}&namaVenueReq=${namaVenue}&namaLapanganReq=${namaLapangan}&tglMainReq=${tglMain}`, fetcher, { refreshInterval: 1000 })
 
     console.log(tglMain)
     if (!data) {
@@ -71,7 +71,7 @@ export default function DetailLapangan() {
         setAvailableJam()
         setAvailableJamFilter()
         setAvailableHari()
-        
+
 
     }
 
@@ -260,7 +260,7 @@ export default function DetailLapangan() {
             alert('Mohon Maaf jadwal sudah dipesan, Mohon untuk memilih jadwal kembali')
             Router.reload()
         }
-        
+
         // e.preventDefault();
 
         // // reset error and message
@@ -345,10 +345,10 @@ export default function DetailLapangan() {
                     {/* END SLIDER */}
                 </div>
             </div>
-             <div className='row mb-4' style={{ color: "black" }}>
-               
-                    <h5 className='text-start'> Deskripsi Lapangan</h5>
-               
+            <div className='row mb-4' style={{ color: "black" }}>
+
+                <h5 className='text-start'> Deskripsi Lapangan</h5>
+
                 <div>
                     <div className="d-flex justify-content-between">
                         <span>{infoLapangan.deskripsi}</span>
@@ -445,13 +445,13 @@ export default function DetailLapangan() {
 
                         }}> */}
 
-                        <button type='submit' className='btn btn-fill text-white mt-3' onClick={() => checkValue()}>Pesan</button>
+                        <button type='submit' className='btn btn-fill text-white mt-3' disabled={(session) ? (false) : (true)} onClick={() => checkValue()}>Pesan</button>
 
                         {/* Session di sini jangan lupa dan button */}
                         {/* disabled={(session) ? (false) : (true)} */}
                         {
                             !session &&
-                            <span style={{color:'red'}}><b>*Anda harus login/daftar untuk memesan</b> </span>
+                            <span style={{ color: 'red' }}><b>*Anda harus login/daftar untuk memesan</b> </span>
                         }
 
                         {/* </Link> */}
