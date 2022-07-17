@@ -58,7 +58,7 @@ export default function Lapangan() {
                 <div className="container my-4 text-black-50" >
                     <h3 style={{ color: 'black' }}>Rekomendasi Lapangan</h3>
                     <hr></hr>
-                    <div className="row p-2 justify-content-center mt-3">
+                    <div className="row p-2 mt-3">
                         {lapangan.favorit.length === 0 ? (
                             <></>
                         ) : (
